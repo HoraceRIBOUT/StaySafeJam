@@ -9,11 +9,12 @@ public class CameraManagement : MonoBehaviour
     public float mainInterest = 10f;
 
     private float firstYPos;
-    private float firstZPos = -30.0f + 7.5f;
+    private float firstZPos = -8.5f;
 
 
     public Vector3 velocity;
     public float smoothTime = 0.1f;
+    public float rotationIntensity = 1f;
 #if UNITY_EDITOR
     public List<Transform> transformFromPointList = new List<Transform>();
 #endif
@@ -44,13 +45,15 @@ public class CameraManagement : MonoBehaviour
         finalTarget.z += firstZPos;
 
         this.transform.position = Vector3.SmoothDamp(this.transform.position, finalTarget, ref velocity, smoothTime);
-
+        if (velocity.x != 0)
+        {
+            this.transform.eulerAngles = new Vector3(45, velocity.x * rotationIntensity, 0);
+        }
 
 #if UNITY_EDITOR
         ForDebug();
 #endif
     }
-
 
 #if UNITY_EDITOR
     void ForDebug()
