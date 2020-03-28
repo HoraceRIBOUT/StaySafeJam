@@ -10,6 +10,7 @@ public class CameraManagement : MonoBehaviour
 
     private float firstYPos;
     private float firstZPos = -8.5f;
+    private Vector3 realPosition = Vector3.zero;
 
 
     public Vector3 velocity;
@@ -19,9 +20,18 @@ public class CameraManagement : MonoBehaviour
     public List<Transform> transformFromPointList = new List<Transform>();
 #endif
 
+    [Header("Trauma")]
+    [Range(0,1)]
+    public float trauma;
+    public float screenSpeed = 10f;
+    public float screenShakeIntensity = 1f;
+    public float screenShakeDecreaseTime = 0.5f;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        realPosition = this.transform.position;
         firstYPos = this.transform.position.y;
         //firstZPos = this.transform.position.z;
         interestPointList.Add(mainTarget, mainInterest);
@@ -44,15 +54,36 @@ public class CameraManagement : MonoBehaviour
         finalTarget.y = firstYPos;
         finalTarget.z += firstZPos;
 
-        this.transform.position = Vector3.SmoothDamp(this.transform.position, finalTarget, ref velocity, smoothTime);
+        realPosition = Vector3.SmoothDamp(realPosition, finalTarget, ref velocity, smoothTime);
         if (velocity.x != 0)
         {
             this.transform.eulerAngles = new Vector3(45, velocity.x * rotationIntensity, 0);
         }
 
+        Vector3 screenVec = Vector3.zero;
+        //Screenshake part
+        if (trauma>0)
+        {
+            screenVec.x = (Mathf.PerlinNoise(1, Time.timeSinceLevelLoad * screenSpeed) - 0.5f ) * trauma * trauma * screenShakeIntensity;
+            screenVec.z = (Mathf.PerlinNoise(Time.timeSinceLevelLoad * screenSpeed, 1) - 0.5f ) * trauma * trauma * screenShakeIntensity;
+            trauma -= Time.deltaTime * screenShakeDecreaseTime;
+        }
+
+        this.transform.position = realPosition + screenVec;
+
 #if UNITY_EDITOR
         ForDebug();
 #endif
+    }
+
+    [ContextMenu("Screenshake")]
+    public void Screenshake()
+    {
+        Screenshake(1);
+    }
+    public void Screenshake(float intensity)
+    {
+        trauma = intensity;
     }
 
 #if UNITY_EDITOR

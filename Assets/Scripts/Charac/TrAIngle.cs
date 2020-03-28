@@ -126,6 +126,7 @@ public class TrAIngle : Triangle
                     {
                         Vector3 diff = (this.transform.position - tr.transform.position);
                         diff /= diff.sqrMagnitude;
+                        diff *= tr.rangeToGetAwayFrom;
                         distSum += diff * minDist;
 
                         moveOfLeader += tr.lastMove;
