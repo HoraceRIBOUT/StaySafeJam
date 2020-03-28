@@ -8,4 +8,9 @@ public class Wall : Triangle
     {
         lastMove = Vector3.zero;
     }
+
+    public override TriangleType getType()
+    {
+        return TriangleType.wall;
+    }
 }

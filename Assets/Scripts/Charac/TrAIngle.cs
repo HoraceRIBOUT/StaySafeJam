@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -189,6 +189,11 @@ public class TrAIngle : Triangle
         return moveVector;
     }
 
+
+    public override TriangleType getType()
+    {
+        return TriangleType.dog;
+    }
 
     [ContextMenu("DistanceToTarget")]
     float distranceToTarget()

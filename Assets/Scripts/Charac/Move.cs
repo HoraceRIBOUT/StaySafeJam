@@ -67,4 +67,11 @@ public class Move : Triangle
         this.transform.Translate(finalMove * Time.deltaTime);
         lastMove = finalMove;
     }
+
+
+    public override TriangleType getType()
+    {
+        return TriangleType.hero;
+    }
+
 }

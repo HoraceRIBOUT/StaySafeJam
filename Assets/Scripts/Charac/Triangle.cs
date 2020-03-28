@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Triangle : MonoBehaviour
+public abstract class Triangle : MonoBehaviour
 {
 
     public Vector3 lastMove = Vector3.zero;
@@ -13,4 +13,16 @@ public class Triangle : MonoBehaviour
     public float bumpReducer = 0.33f;
 
     public float timerBumper = 0;
+
+    public enum TriangleType
+    {
+        dog,
+        wall,
+        hero,
+
+    }
+
+    public abstract TriangleType getType();
+
+
 }
