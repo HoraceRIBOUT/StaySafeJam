@@ -47,7 +47,7 @@ public class TrAIngle : Triangle
         {
             idleWait = false;
             newIdlePos();
-            yield return new WaitUntil(()=> currentState == State.idle && (this.transform.position - currentTarget).sqrMagnitude < 0.4f);
+            yield return new WaitUntil(()=> (this.transform.position - currentTarget).sqrMagnitude < 0.4f);
             idleWait = true;
             float randomWait = Random.Range(0f, 3f);
             yield return new WaitForSeconds(randomWait);
@@ -63,122 +63,66 @@ public class TrAIngle : Triangle
 
     public void Update()
     {
-        switch (currentState)
+        Vector3 finalMove = Vector3.zero;
+        if (listOfViewSquare.Count != 0 /*&& groupSize > square.groupSize*/)
         {
-            case State.idle:
-                if (currentSpeed > idleSpeed)
-                    currentSpeed -= Time.deltaTime * 2f;
-                else
-                    currentSpeed = idleSpeed;
-
-                if (!idleWait)
-                {
-                    Vector3 idleMove = (currentTarget - this.transform.position).normalized * currentSpeed;
-
-
-                    idleMove = addBumpyness(idleMove);
-
-                    this.transform.Translate(idleMove * Time.deltaTime);
-                    lastMove = idleMove;
-                }
-
-                if (listOfViewSquare.Count != 0)
-                {
-                    goesToRunAway();
-                }
-                else if (listOfViewedOther.Count != 0)
-                {
-                    goesInGroup();
-                }
-                break;
-            case State.runAway:
-                if (listOfViewSquare.Count != 0 /*&& groupSize > square.groupSize*/)
-                {
-                    Vector3 sumOfDistance = Vector3.zero;
-                    foreach (Transform square in listOfViewSquare)
-                    {
-                        sumOfDistance += (this.transform.position - square.position);
-                    }
-                    Vector3 finalMove = sumOfDistance.normalized * runAwaySpeed;
-                    
-                    finalMove = addBumpyness(finalMove);
-
-                    this.transform.Translate(finalMove * Time.deltaTime);
-                    lastMove = finalMove;
-                }
-                else
-                {
-                    goesBackToIdle();
-                }
-                break;
-            case State.inGroup:
-                if (listOfViewSquare.Count != 0)
-                {
-                    goesToRunAway();
-                }
-                else if (listOfViewedOther.Count != 0) 
-                {
-                    //stay in distance to everyone : same run away than the square. (average distance)
-                    Vector3 distSum = Vector3.zero;
-                    //move also depending of "leader" movement
-                    Vector3 moveOfLeader = Vector3.zero;
-                    //move towards the average position.
-                    Vector3 posSum = Vector3.zero;
-
-                    float numberInGroup = 0;
-                    foreach (Triangle tr in listOfViewedOther)
-                    {
-                        Vector3 diff = (this.transform.position - tr.transform.position);
-                        diff /= diff.sqrMagnitude;
-                        diff *= tr.rangeToGetAwayFrom;
-                        distSum += diff * minDist;
-
-                        moveOfLeader += tr.lastMove;
-
-                        posSum += tr.transform.position;
-                        numberInGroup++;
-                    }
-                    moveOfLeader /= numberInGroup;
-                    distSum /= numberInGroup;
-                    posSum /= numberInGroup;
-                    posSum -= this.transform.position;
-
-                    posSum *= centerOfTheAttention;
-                    distSum *= introvertness;
-                    moveOfLeader *= rebellness;
-
-                    Vector3 finalMove = (distSum + posSum /*+ moveOfLeader*/).normalized * groupSpeed;
-                    //finalMove = addBumpyness(finalMove);
-                    this.transform.Translate(finalMove * Time.deltaTime);
-                    lastMove = finalMove;
-                }
-                else
-                {
-                    goesBackToIdle();
-                }
-                break;
-            default:
-                break;
+            Vector3 sumOfDistance = Vector3.zero;
+            foreach (Transform square in listOfViewSquare)
+            {
+                sumOfDistance += (this.transform.position - square.position);
+            }
+            Vector3 wolfMove = sumOfDistance.normalized * runAwaySpeed;
+            finalMove += wolfMove;
         }
+        else
+        {
+            Vector3 idleMove = Vector3.zero;
+            if (currentSpeed > idleSpeed)
+                currentSpeed -= Time.deltaTime * 2f;
+            else
+                currentSpeed = idleSpeed;
+
+            if (!idleWait)
+            {
+                idleMove = (currentTarget - this.transform.position).normalized * currentSpeed;
+            }
+            finalMove += idleMove;
+        }
+
+        if (listOfViewedOther.Count != 0)
+        {
+            finalMove += computeAdvoidingDirection() * introvertness;
+        }
+        
+        //FINAL
+        finalMove = addBumpyness(finalMove);
+        this.transform.Translate(finalMove * Time.deltaTime);
+        lastMove = finalMove;
     }
 
-    void goesBackToIdle()
+    Vector3 computeAdvoidingDirection()
     {
-        newIdlePos();
-        currentState = State.idle;
-    }
+        //add dodge from other dog but not as powerfull as the run away
+        float numberInGroup = 0;
+        Vector3 directionToAvoidPeople = Vector3.zero;
+        foreach (Triangle tr in listOfViewedOther)
+        {
+            Vector3 diff = (this.transform.position - tr.transform.position);
+            diff.y = 0;
+            float dist = diff.sqrMagnitude;
+            /*if (dist < tr.rangeToGetAwayFrom * tr.rangeToGetAwayFrom)*/
+            {
+                diff /= dist;
+                diff *= tr.rangeToGetAwayFrom;
+                directionToAvoidPeople += diff * minDist;
+                Debug.DrawRay(this.transform.position, diff * minDist, Color.green);
+            }
+            numberInGroup++;
+        }
+        directionToAvoidPeople /= numberInGroup;
 
-    void goesToRunAway()
-    {
-        currentSpeed = runAwaySpeed;
-        currentState = State.runAway;
+        return directionToAvoidPeople;
     }
-
-    void goesInGroup()
-    {
-        currentState = State.inGroup;
-    }
-
 
     Vector3 addBumpyness(Vector3 moveVector)
     {
