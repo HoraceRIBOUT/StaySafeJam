@@ -7,7 +7,7 @@ public class PopulateTree : MonoBehaviour
 {
     public bool createTree = false;
     public bool deleteAllTrees = false;
-    private List<GameObject> allTrees = new List<GameObject>();
+    public List<GameObject> allTrees = new List<GameObject>();
     public Transform folderTree; 
 
     public int numberOfCase = 100;
@@ -23,7 +23,6 @@ public class PopulateTree : MonoBehaviour
             return;
 
         populate();
-
     }
 
     public void Update()
@@ -49,6 +48,7 @@ public class PopulateTree : MonoBehaviour
     {
         DeleteAllTree();
         createTree = false;
+        float randomSeed = Random.Range(-0.34765f, 0.9425f) * 100f;
 
         float lerpStep = 1f / (float)numberOfCase;
 
@@ -56,7 +56,7 @@ public class PopulateTree : MonoBehaviour
         {
             for (float lerpY = 0; lerpY < 1; lerpY += lerpStep)
             {
-                if (Mathf.PerlinNoise(Time.timeSinceLevelLoad * 10 * lerpX, Time.timeSinceLevelLoad * 10 * lerpY) < chanceOfHavingATree)
+                if (Mathf.PerlinNoise((randomSeed + Time.time) * 10 * lerpX, (randomSeed + Time.time) * lerpY) < chanceOfHavingATree)
                 {
 
                     Vector3 position = Vector3.Lerp(Vector3.Lerp(minL, maxL, lerpX), Vector3.Lerp(minR, maxR, lerpX), lerpY);

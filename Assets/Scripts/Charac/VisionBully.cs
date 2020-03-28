@@ -23,6 +23,10 @@ public class VisionBully : MonoBehaviour
         Triangle triangle = other.GetComponent<Triangle>();
         if (triangle != null)
         {
+            if (triangle.GetComponent<Wall>())
+            {
+                return;
+            }
             if (!father.listOfPotentialVictim.Contains(triangle.transform))
                 father.listOfPotentialVictim.Add(triangle.transform);
         }
@@ -43,6 +47,10 @@ public class VisionBully : MonoBehaviour
         Triangle triangle = other.GetComponent<Triangle>();
         if (triangle != null)
         {
+            if (triangle.GetComponent<Wall>())
+            {
+                return;
+            }
             if (father.listOfPotentialVictim.Contains(triangle.transform))
                 father.listOfPotentialVictim.Remove(triangle.transform);
         }
