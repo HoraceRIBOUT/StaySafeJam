@@ -112,7 +112,11 @@ public class TrAIngle : Triangle
                 }
                 break;
             case State.inGroup:
-                if (listOfViewedOther.Count != 0)
+                if (listOfViewSquare.Count != 0)
+                {
+                    goesToRunAway();
+                }
+                else if (listOfViewedOther.Count != 0) 
                 {
                     //stay in distance to everyone : same run away than the square. (average distance)
                     Vector3 distSum = Vector3.zero;

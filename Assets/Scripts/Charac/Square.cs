@@ -97,7 +97,29 @@ public class Square : MonoBehaviour
             default:
                 break;
         }
+
+
+
+
+        //Visual, bad
+        switch (currentState)
+        {
+            case State.idle:
+                icon.sprite = spriteList[0];
+                break;
+            case State.bully:
+                icon.sprite = spriteList[1];
+                break;
+            case State.runAway:
+
+                break;
+            default:
+                break;
+        }
     }
+    [Header("Visual")]
+    public SpriteRenderer icon;
+    public List<Sprite> spriteList = new List<Sprite>(); //0 normal / 1: bully
 
     void goesBully()
     {

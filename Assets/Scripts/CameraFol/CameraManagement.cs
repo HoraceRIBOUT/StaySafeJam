@@ -57,7 +57,7 @@ public class CameraManagement : MonoBehaviour
         realPosition = Vector3.SmoothDamp(realPosition, finalTarget, ref velocity, smoothTime);
         if (velocity.x != 0)
         {
-            this.transform.eulerAngles = new Vector3(45, velocity.x * rotationIntensity, 0);
+            this.transform.eulerAngles = new Vector3(45, velocity.x * rotationIntensity, velocity.x * rotationIntensity * 0.5f);
         }
 
         Vector3 screenVec = Vector3.zero;

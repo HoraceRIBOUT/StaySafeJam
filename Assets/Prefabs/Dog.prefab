@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1350923166955120654
 Transform:
   m_ObjectHideFlags: 0
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 7883549408350104193}
   - component: {fileID: 6734105994357845351}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: Dog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,12 +189,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 531e10e9dde9fc543b47c5a0fc7aea22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastMove: {x: 0, y: 0, z: 0}
+  rangeToGetAwayFrom: 1
   bumpVector: {x: 0, y: 0, z: 0}
   bumpReducer: 5
   timerBumper: 0
   currentSpeed: 1
   idleSpeed: 1
   runAwaySpeed: 4
+  groupSpeed: 4
   minDist: 5
   centerOfTheAttention: 1
   introvertness: 7
@@ -353,7 +356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2798543441184513693
 Transform:
   m_ObjectHideFlags: 0
