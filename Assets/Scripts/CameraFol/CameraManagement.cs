@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class CameraManagement : MonoBehaviour
 {
     public Dictionary<Transform, float> interestPointList = new Dictionary<Transform, float>();
     public Transform mainTarget;
     public float mainInterest = 10f;
 
     private float firstYPos;
-    private float firstZPos = -30;
+    private float firstZPos = -30.0f + 7.5f;
 
 
     public Vector3 velocity;
     public float smoothTime = 0.1f;
+#if UNITY_EDITOR
+    public List<Transform> transformFromPointList = new List<Transform>();
+#endif
 
     // Start is called before the first frame update
     void Start()
@@ -41,5 +44,22 @@ public class Camera : MonoBehaviour
         finalTarget.z += firstZPos;
 
         this.transform.position = Vector3.SmoothDamp(this.transform.position, finalTarget, ref velocity, smoothTime);
+
+
+#if UNITY_EDITOR
+        ForDebug();
+#endif
     }
+
+
+#if UNITY_EDITOR
+    void ForDebug()
+    {
+        transformFromPointList.Clear();
+        foreach (KeyValuePair<Transform, float> interestPoint in interestPointList)
+        {
+            transformFromPointList.Add( interestPoint.Key);
+        }
+    }
+#endif
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraZone : MonoBehaviour
 {
     public Transform targetToFollow;
-    public Camera cameraToFill;
+    public CameraManagement cameraToFill;
     //probably a list of thing bidule chouette
 
     private void OnTriggerEnter(Collider other)
