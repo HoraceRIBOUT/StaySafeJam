@@ -9060,11 +9060,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 93168150}
     m_Modifications:
-    - target: {fileID: 3028061748617512641, guid: b8b5003da0156ba4a8ef5ea2d9b3a9e6,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3037865158893264576, guid: b8b5003da0156ba4a8ef5ea2d9b3a9e6,
         type: 3}
       propertyPath: introvertness
