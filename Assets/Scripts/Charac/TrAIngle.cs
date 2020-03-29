@@ -254,6 +254,7 @@ public class TrAIngle : Triangle
         GameManager.Instance.hero.friendNumbers++;
         GameManager.Instance.sndManager.UpdateFriendNumer(GameManager.Instance.hero.friendNumbers);
         GameManager.Instance.sndManager.PlayDogFriendly();
+        gameObject.GetComponent<Animator>().SetBool("friend", true);
     }
 
     public void UpdateVisual()
