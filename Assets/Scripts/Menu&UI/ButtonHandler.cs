@@ -7,31 +7,36 @@ using UnityEngine.SceneManagement;
 public class ButtonHandler : MonoBehaviour
 {
     [SerializeField] private GameObject creditsCanvas;
-    [SerializeField] private AudioSource Button;
+    [SerializeField] private AudioSource buttonSound;
 
-    // Start is called before the first frame update
     public void StartGame()
     {
-        //Button.Play();
+        if (buttonSound) { buttonSound.Play(); }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void RestartGame()
     {
-        //Button.Play();
+        if (buttonSound) { buttonSound.Play(); }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void StartCredits()
     {
-        //Button.Play();
+        if (buttonSound) { buttonSound.Play(); }
         creditsCanvas.SetActive(true);
     }
 
     public void QuitGame()
     {
-        //Button.Play();
+        if (buttonSound) { buttonSound.Play(); }
         Application.Quit();
+    }
+
+    public void GoToMenu()
+    {
+        if (buttonSound) { buttonSound.Play(); }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     public void Back()
