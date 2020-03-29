@@ -103,7 +103,7 @@ public class Square : MonoBehaviour
                     Vector3 moveAwayVec = addMoveAwayFromPeopleIDontLike();
                     finalMove += moveAwayVec;
 
-                    if (listOfPeopleIDontLike.Count != 0 && moveAwayVec != Vector3.zero && listOfPeopleIDontLike.Count * 2 + listOfPotentialVictim.Count > 3 * (listOfFriends.Count + 1))
+                    if (listOfPeopleIDontLike.Count != 0 && moveAwayVec != Vector3.zero && listOfPeopleIDontLike.Count * 2 + listOfPotentialVictim.Count > 8 * (listOfFriends.Count + 1))
                     {
                         finalMove -= finalMove;
                         finalMove = moveAwayVec;
