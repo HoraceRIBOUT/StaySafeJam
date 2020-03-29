@@ -191,6 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lastMove: {x: 0, y: 0, z: 0}
   rangeToGetAwayFrom: 1
+  friendship: 0
   bumpVector: {x: 0, y: 0, z: 0}
   bumpReducer: 5
   timerBumper: 0
@@ -203,15 +204,16 @@ MonoBehaviour:
   maxIdleSpeed: 1
   maxAvoidSpeed: 2
   maxFollowSpeed: 3
+  maxBackToLeaderSpeed: 3
   minDist: 5
   centerOfTheAttention: 1
   introvertness: 7
-  friendship: 0
   friendshipSprite: {fileID: 5088405812803266550}
   currentState: 0
   viewRange: 0
   listOfViewSquare: []
   listOfViewedOther: []
+  listOfFriends: []
   nearEffect:
     serializedVersion: 2
     m_Curve:
@@ -236,6 +238,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  faceSprite: {fileID: 4436129778939149234}
+  listSpriteFace:
+  - {fileID: 3286163911610860551, guid: a89bad36c9ee12c408ac5c690ae63ce1, type: 3}
+  - {fileID: 3286163911610860551, guid: b9ad044d78f465341ab3d42803897ed5, type: 3}
+  - {fileID: 3286163911610860551, guid: a89bad36c9ee12c408ac5c690ae63ce1, type: 3}
 --- !u!54 &7122485491189064479
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -590,6 +597,12 @@ Transform:
 --- !u!4 &4436129778801041289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6570655625532294592, guid: 2df760326f93fac46b17db592d4f8d48,
+    type: 3}
+  m_PrefabInstance: {fileID: 7403888088766847561}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &4436129778939149234 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6570655627532739067, guid: 2df760326f93fac46b17db592d4f8d48,
     type: 3}
   m_PrefabInstance: {fileID: 7403888088766847561}
   m_PrefabAsset: {fileID: 0}

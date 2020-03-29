@@ -158,6 +158,7 @@ public class Square : MonoBehaviour
             //Shuld be a method in triangle
             tria.bumpVector = (tria.transform.position - this.transform.position).normalized * bumpIntensity;
             tria.timerBumper = 0;
+            tria.Bump();
 
             goesLaugh();
         }

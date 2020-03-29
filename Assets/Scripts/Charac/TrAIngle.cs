@@ -289,13 +289,42 @@ public class TrAIngle : Triangle
 
     Vector3 addBumpyness(Vector3 moveVector)
     {
+        if (bumpVector == Vector3.zero)
+        {
+            return moveVector;
+        }
+
         moveVector.x += bumpVector.x * runAwaySpeed;
         moveVector.z += bumpVector.z * runAwaySpeed;
         timerBumper += Time.deltaTime * 0.5f;
         bumpVector -= (bumpVector * bumpReducer) * Time.deltaTime;
+
+        if (bumpVector == Vector3.zero)
+        {
+            EndBump();
+        }
         return moveVector;
     }
 
+    [Header("Bump")]
+    public SpriteRenderer faceSprite;
+    public List<Sprite> listSpriteFace; //0 = normal / 1=bumped /2 = fear
+
+    public override void Bump()
+    {
+        faceSprite.sprite = listSpriteFace[1];
+
+        if(friendship > 8)
+        {
+            float value = (friendship - 8f) / 2f;
+
+        }
+    }
+
+    public void EndBump()
+    {
+        faceSprite.sprite = listSpriteFace[0];
+    }
 
     public override TriangleType getType()
     {

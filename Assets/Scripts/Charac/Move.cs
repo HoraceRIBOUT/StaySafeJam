@@ -68,6 +68,10 @@ public class Move : Triangle
         lastMove = finalMove;
     }
 
+    public override void Bump()
+    {
+        //screenshake
+    }
 
     public override TriangleType getType()
     {

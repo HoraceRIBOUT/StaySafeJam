@@ -25,6 +25,7 @@ public abstract class Triangle : MonoBehaviour
     }
 
     public abstract TriangleType getType();
+    public abstract void Bump();
 
 
 }

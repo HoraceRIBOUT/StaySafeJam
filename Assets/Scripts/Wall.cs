@@ -17,4 +17,9 @@ public class Wall : Triangle
     {
         return TriangleType.wall;
     }
+
+    public override void Bump()
+    {
+        return;
+    }
 }
