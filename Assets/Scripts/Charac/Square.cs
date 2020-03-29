@@ -17,6 +17,7 @@ public class Square : MonoBehaviour
     public List<Square> listOfFriends = new List<Square>();
     public float timerBump = 0f;
 
+    public int resistance = 7;
 
     public enum State
     {
@@ -103,7 +104,7 @@ public class Square : MonoBehaviour
                     Vector3 moveAwayVec = addMoveAwayFromPeopleIDontLike();
                     finalMove += moveAwayVec;
 
-                    if (listOfPeopleIDontLike.Count != 0 && moveAwayVec != Vector3.zero && listOfPeopleIDontLike.Count * 2 + listOfPotentialVictim.Count > 8 * (listOfFriends.Count + 1))
+                    if (listOfPeopleIDontLike.Count != 0 && moveAwayVec != Vector3.zero && listOfPeopleIDontLike.Count * 2 + listOfPotentialVictim.Count > (resistance-1) * (listOfFriends.Count + 1))
                     {
                         finalMove -= finalMove;
                         finalMove = moveAwayVec;

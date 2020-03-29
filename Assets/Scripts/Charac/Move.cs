@@ -60,6 +60,8 @@ public class Move : Triangle
         {
             doggo.GetScared(doggo.transform.position - this.transform.position);
         }
+
+        GameManager.Instance.sndManager.PlayAskHelp();
     }
 
 

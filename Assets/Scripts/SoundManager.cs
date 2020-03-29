@@ -23,6 +23,7 @@ public class SoundManager : MonoBehaviour
     public List<AudioClip> dogFleeList;
     private float volumeDogFlee;
 
+    public AudioSource askHelp;
 
     public float timerForAttack = 0f;
     public int volumeHappier = 0;
@@ -143,6 +144,11 @@ public class SoundManager : MonoBehaviour
             aSAvailable.pitch = Random.Range(0.4f, 1.4f);
             aSAvailable.Play();
         }
+    }
+
+    public void PlayAskHelp()
+    {
+        askHelp.Play();
     }
 
 }

@@ -257,6 +257,10 @@ public class TrAIngle : Triangle
     {
         friendship = 10;
         GameManager.Instance.hero.friendNumbers++;
+        if (GameManager.Instance.hero.friendNumbers > 8)
+        {
+            GameManager.Instance.LaunchWolf();
+        }
         GameManager.Instance.sndManager.UpdateFriendNumer(GameManager.Instance.hero.friendNumbers);
         GameManager.Instance.sndManager.PlayDogFriendly();
         gameObject.GetComponent<Animator>().SetBool("friend", true);
