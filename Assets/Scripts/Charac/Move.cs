@@ -12,6 +12,10 @@ public class Move : Triangle
 
     public int friendNumbers = 0;
 
+    [Header("Bump")]
+    public SpriteRenderer faceSprite;
+    public List<Sprite> listSpriteFace; //0 = normal / 1=bumped
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,6 +81,7 @@ public class Move : Triangle
             finalMove.x = direction.x * joystickIntensity * gmplVal.speed;
             finalMove.z = direction.y * joystickIntensity * gmplVal.speed;
 
+            faceSprite.sprite = listSpriteFace[0];
         }
         else
         {
@@ -89,6 +94,9 @@ public class Move : Triangle
             finalMove.z = bumpVector.z * gmplVal.bumpSpeed + direction.y * joystickIntensity * Mathf.Min(timerBumper, gmplVal.speed);
             timerBumper += Time.deltaTime * gmplVal.resistanceToBump;
             bumpVector -= bumpVector * Time.deltaTime * bumpDurationReducer;
+
+
+            faceSprite.sprite = listSpriteFace[1];
         }
 
 

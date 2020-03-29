@@ -373,12 +373,16 @@ MonoBehaviour:
   rangeToGetAwayFrom: 1
   friendship: 1
   bumpVector: {x: 0, y: 0, z: 0}
-  bumpReducer: 5
+  bumpDurationReducer: 0.33
   timerBumper: 0
   gmplVal: {fileID: 11400000, guid: b7b86d40052acf741951ac55511ea200, type: 2}
   foxesAtReach: []
   doggoAtReach: []
   friendNumbers: 0
+  faceSprite: {fileID: 5314633937075051892}
+  listSpriteFace:
+  - {fileID: 3286163911610860551, guid: d0216623ab5775d4091e3e2f8d5d75d0, type: 3}
+  - {fileID: 3286163911610860551, guid: 68b381859ed98de47ae3b19b07dd9584, type: 3}
   askForHelpAnim: {fileID: 7158246490946822602}
 --- !u!54 &6191185244288058104
 Rigidbody:
@@ -433,6 +437,12 @@ PrefabInstance:
 --- !u!4 &5314633935792550498 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6930364131786731502, guid: 1a0007bb3c0cdce43afb5a494d61aa19,
+    type: 3}
+  m_PrefabInstance: {fileID: 3021007280086130060}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &5314633937075051892 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6930364133074206968, guid: 1a0007bb3c0cdce43afb5a494d61aa19,
     type: 3}
   m_PrefabInstance: {fileID: 3021007280086130060}
   m_PrefabAsset: {fileID: 0}

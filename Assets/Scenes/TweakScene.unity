@@ -55741,6 +55741,21 @@ PrefabInstance:
       propertyPath: mainTarget
       value: 
       objectReference: {fileID: 1220754267}
+    - target: {fileID: 7667477003924470249, guid: eb0e1c0c9a0b50544afd3f1a42d64c81,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7667477003924470249, guid: eb0e1c0c9a0b50544afd3f1a42d64c81,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7667477003924470249, guid: eb0e1c0c9a0b50544afd3f1a42d64c81,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7667477004674180963, guid: eb0e1c0c9a0b50544afd3f1a42d64c81,
         type: 3}
       propertyPath: targetToFollow
