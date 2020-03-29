@@ -4,34 +4,20 @@ using UnityEngine;
 
 public class TrAIngle : Triangle
 {
+    public DogVal gmplValue;
+
     [Header("Debug")]
     public bool debug = false;
 
     [Header("Move")]
     public float currentSpeed = 1f;
-    public float idleSpeed = 1f;
+   
     private Vector3 currentTarget = Vector3.zero;
     private bool idleWait = false;
-    public float runAwaySpeed = 1f;
-    public float groupSpeed = 4f;
-
-    public float maxRunAwaySpeed = 1f;
-    public float maxIdleSpeed = 1f;
-    public float maxAvoidSpeed = 1f;
-    public float maxFollowSpeed = 3f;
-    public float maxBackToLeaderSpeed = 3f;
-
-    public float secondToFriend = 3f;
-    private float multiplicatorFriendship = 0.33f;
-
+    
     public Vector3 getScare = Vector3.zero;
 
-    public float minDist = 12f;
-
-    [Range(0,10)]
-    public float centerOfTheAttention = 1f;
-    [Range(0, 10)]
-    public float introvertness = 1f;
+    public float multiplicatorFriendship = 0.33f;
     public SpriteRenderer friendshipSprite;
 
     public enum State
@@ -49,12 +35,25 @@ public class TrAIngle : Triangle
     public List<Triangle> listOfViewedOther = new List<Triangle>();
     public List<Triangle> listOfFriends = new List<Triangle>();
 
+
+    [Header("Friendship Aimation")]
+    public SpriteRenderer coinAnim01;
+    public SpriteRenderer coinAnim02;
+    public List<Sprite> allSpriteToShow;
+    public AnimationCurve nearEffect = new AnimationCurve();
+    [Header("Bump")]
+    public SpriteRenderer faceSprite;
+    public List<Sprite> listSpriteFace; //0 = normal / 1=bumped /2 = fear
+   
     public void Start()
     {
-        currentSpeed = idleSpeed;
+        rangeToGetAwayFrom = gmplValue.rangeToGetAwayFrom;
+        bumpDurationReducer = gmplValue.bumpDurationReducer;
+
+           currentSpeed = gmplValue.idleSpeed;
         StartCoroutine(idleTargetting());
 
-        multiplicatorFriendship = 10f / secondToFriend;
+        multiplicatorFriendship = 10f / gmplValue.secondToFriend;
     }
 
     IEnumerator idleTargetting()
@@ -65,7 +64,7 @@ public class TrAIngle : Triangle
             newIdlePos();
             yield return new WaitUntil(()=> (this.transform.position - currentTarget).sqrMagnitude < 0.4f);
             idleWait = true;
-            float randomWait = Random.Range(0f, 3f);
+            float randomWait = Random.Range(gmplValue.waitRange.x, gmplValue.waitRange.y);
             yield return new WaitForSeconds(randomWait);
         }
 
@@ -73,8 +72,8 @@ public class TrAIngle : Triangle
     void newIdlePos()
     {
         currentTarget = this.transform.position;
-        currentTarget.x += Random.Range(-2f, 2f);
-        currentTarget.z += Random.Range(-3f, 3f);
+        currentTarget.x += Random.Range(gmplValue.idleRangeX.x, gmplValue.idleRangeX.y);
+        currentTarget.z += Random.Range(gmplValue.idleRangeY.x, gmplValue.idleRangeY.y);
     }
 
     public void Update()
@@ -89,25 +88,23 @@ public class TrAIngle : Triangle
                 sumOfDistance += (this.transform.position - square.position);
             }
             Vector3 wolfMove = sumOfDistance.normalized * currentSpeed;
-            wolfMove = Vector3.ClampMagnitude(wolfMove, maxRunAwaySpeed);
+            wolfMove = Vector3.ClampMagnitude(wolfMove, gmplValue.maxRunAwaySpeed);
             finalMove += wolfMove;
         }
         //IDLE MOVE
         else
         {
             Vector3 idleMove = Vector3.zero;
-            if (currentSpeed > idleSpeed)
+            if (currentSpeed > gmplValue.idleSpeed)
                 currentSpeed -= Time.deltaTime * 2f;
             else
-                currentSpeed = idleSpeed;
+                currentSpeed = gmplValue.idleSpeed;
 
             if (!idleWait)
             {
                 idleMove = (currentTarget - this.transform.position).normalized * currentSpeed;
             }
-            Debug.DrawRay(this.transform.position, idleMove, Color.red + Color.blue);
-
-            idleMove = Vector3.ClampMagnitude(idleMove, maxIdleSpeed);
+            idleMove = Vector3.ClampMagnitude(idleMove, gmplValue.maxIdleSpeed);
             finalMove += idleMove;
             if (debug)
                 Debug.Log("SO : " + idleMove + " final Move = " + finalMove);
@@ -137,32 +134,23 @@ public class TrAIngle : Triangle
                 if (tr.getType() == TriangleType.hero)
                 {
                     moveFromLeader = tr.lastMove; //* distToLeader is clearly not the same as (dist)
-
                     float reduce = Vector3.Dot(moveFromLeader.normalized, (tr.transform.position - this.transform.position).normalized);
-
-                    Debug.DrawRay(this.transform.position, moveFromLeader, Color.blue);
-                    Debug.DrawRay(this.transform.position, (tr.transform.position - this.transform.position), Color.white * 0.25f);
-                    Debug.DrawRay(this.transform.position, moveFromLeader * reduce, Color.cyan);
-
                     moveFromLeader *= reduce;
-
-                    moveFromLeader = Vector3.ClampMagnitude(moveFromLeader, maxBackToLeaderSpeed);
+                    moveFromLeader = Vector3.ClampMagnitude(moveFromLeader, gmplValue.maxBackToLeaderSpeed);
                 }
-
-
             }
             posSum /= listOfFriends.Count;
             posSum -= this.transform.position;
-            posSum *= centerOfTheAttention;
+            posSum *= gmplValue.centerOfTheAttention;
 
             if(numberOfCloseFriend >= 2)
             {
                 //don't need to get back to his friends
             }
 
-            posSum = Vector3.ClampMagnitude(posSum, maxFollowSpeed);
+            posSum = Vector3.ClampMagnitude(posSum, gmplValue.maxFollowSpeed);
             finalMove += posSum;
-            finalMove += moveFromLeader;
+            finalMove += moveFromLeader * gmplValue.followHero;
         }
 
         //DODGE PEOPLE
@@ -184,7 +172,7 @@ public class TrAIngle : Triangle
                 /*if (dist < tr.rangeToGetAwayFrom * tr.rangeToGetAwayFrom)*/
                 {
                     diff /= dist;//Approx dist = 0 --> 60
-                    diff *= tr.rangeToGetAwayFrom * minDist * nearEffect.Evaluate(dist);
+                    diff *= tr.rangeToGetAwayFrom * gmplValue.minDist * nearEffect.Evaluate(dist);
                     directionToAvoidPeople += diff;
                     //Debug.DrawRay(this.transform.position, diff * minDist, Color.green);
                 }
@@ -204,14 +192,14 @@ public class TrAIngle : Triangle
                     if (friendship >= 5 && !listOfFriends.Contains(tr))
                     { 
                         tr.GetComponent<Move>().friendNumbers++;
-                        GameManager.Instance.sndManager.UpdateMusic((tr.GetComponent<Move>().friendNumbers / 6f));
+                        GameManager.Instance.sndManager.UpdateMusic((tr.GetComponent<Move>().friendNumbers / 10f));
                         GameManager.Instance.sndManager.PlayDogFriendly();
                         listOfFriends.Add(tr);
                     }
                 }
                 else
                 {
-                    if (friendship + tr.friendship > 12f && !listOfFriends.Contains(tr))
+                    if (friendship + tr.friendship > 14f && !listOfFriends.Contains(tr))
                     {
                         listOfFriends.Add(tr);
                     }
@@ -222,14 +210,14 @@ public class TrAIngle : Triangle
             sumMove /= howManyToMove;
             //Debug.DrawRay(this.transform.position, sumMove, Color.red);
 
-            directionToAvoidPeople = Vector3.ClampMagnitude(directionToAvoidPeople, maxAvoidSpeed);
-            finalMove += directionToAvoidPeople * introvertness;
+            directionToAvoidPeople = Vector3.ClampMagnitude(directionToAvoidPeople, gmplValue.maxAvoidSpeed);
+            finalMove += directionToAvoidPeople * gmplValue.introvertness;
 
             //add move, is enough.
             if (howManyToMove != 0)
             {
-                sumMove = Vector3.ClampMagnitude(sumMove, maxFollowSpeed);
-                finalMove += sumMove * (friendship/10f);
+                sumMove = Vector3.ClampMagnitude(sumMove, gmplValue.maxFollowSpeed);
+                finalMove += sumMove * Mathf.Clamp01(friendship/10f);
             }
 
             if (debug)
@@ -260,11 +248,6 @@ public class TrAIngle : Triangle
         UpdateVisual();
     }
 
-    [Header("Friendship Aimation")]
-    public SpriteRenderer coinAnim01;
-    public SpriteRenderer coinAnim02;
-    public List<Sprite> allSpriteToShow;
-
     public void UpdateVisual()
     {
         float value01 = (friendship / 10f);
@@ -285,45 +268,6 @@ public class TrAIngle : Triangle
         coinAnim02.color = Color.Lerp(Color.white - Color.black, Color.white, lerp);
     }
 
-
-    Vector3 computeAdvoidingDirection()
-    {
-        //add dodge from other dog but not as powerfull as the run away
-        float howManyToAvoid = 0;
-        float howManyToMove = 0;
-        Vector3 directionToAvoidPeople = Vector3.zero;
-        Vector3 sumMove = Vector3.zero;
-        foreach (Triangle tr in listOfViewedOther)
-        {
-            Vector3 diff = (this.transform.position - tr.transform.position);
-            diff.y = 0;
-            float dist = diff.sqrMagnitude;
-            /*if (dist < tr.rangeToGetAwayFrom * tr.rangeToGetAwayFrom)*/
-            {
-                diff /= dist;//Approx dist = 0 --> 60
-                diff *= tr.rangeToGetAwayFrom * minDist * nearEffect.Evaluate(dist);
-                directionToAvoidPeople += diff;
-                Debug.DrawRay(this.transform.position, diff * minDist, Color.green);
-            }
-            howManyToAvoid++;
-
-            if (tr.lastMove != Vector3.zero)
-            {
-                sumMove += tr.lastMove;
-                howManyToMove++;
-            }
-        }
-        directionToAvoidPeople /= howManyToAvoid;
-        Debug.DrawRay(this.transform.position, directionToAvoidPeople, Color.green + Color.blue);
-        sumMove /= howManyToMove;
-
-        Debug.DrawRay(this.transform.position, sumMove , Color.red);
-
-        return directionToAvoidPeople;
-    }
-
-    public AnimationCurve nearEffect = new AnimationCurve();
-
     Vector3 addBumpyness(Vector3 moveVector)
     {
         if (bumpVector == Vector3.zero)
@@ -331,10 +275,10 @@ public class TrAIngle : Triangle
             return moveVector;
         }
 
-        moveVector.x += bumpVector.x * runAwaySpeed;
-        moveVector.z += bumpVector.z * runAwaySpeed;
+        moveVector.x += bumpVector.x * gmplValue.bumpIntensity;
+        moveVector.z += bumpVector.z * gmplValue.bumpIntensity;
         timerBumper += Time.deltaTime * 0.5f;
-        bumpVector -= (bumpVector * bumpReducer) * Time.deltaTime;
+        bumpVector -= bumpVector * Time.deltaTime * bumpDurationReducer;
 
         if (bumpVector == Vector3.zero)
         {
@@ -346,12 +290,9 @@ public class TrAIngle : Triangle
     public void GetScared(Vector3 direction)
     {
         float friendshipValue = Mathf.Clamp01((6 - friendship) / 6f);
-        getScare = direction.normalized * maxRunAwaySpeed * friendshipValue;
+        getScare = direction.normalized * gmplValue.maxRunAwaySpeed * friendshipValue;
     }
 
-    [Header("Bump")]
-    public SpriteRenderer faceSprite;
-    public List<Sprite> listSpriteFace; //0 = normal / 1=bumped /2 = fear
 
     public override void Bump()
     {
@@ -361,7 +302,7 @@ public class TrAIngle : Triangle
         if (friendship > 8)
         {
             float value = (friendship - 8f) / 2f;
-            GameManager.Instance.cameraScreen.Screenshake(0.1f * value);
+            GameManager.Instance.cameraScreen.Screenshake(GameManager.Instance.feedbackValue.screenshakeForDog * value);
         }
     }
 

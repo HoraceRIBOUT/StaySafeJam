@@ -195,21 +195,11 @@ MonoBehaviour:
   bumpVector: {x: 0, y: 0, z: 0}
   bumpReducer: 5
   timerBumper: 0
+  gmplValue: {fileID: 11400000, guid: d00da2b6d689f674e9e31f03e09ff43d, type: 2}
   debug: 0
   currentSpeed: 1
-  idleSpeed: 1
-  runAwaySpeed: 4
-  groupSpeed: 4
-  maxRunAwaySpeed: 4
-  maxIdleSpeed: 1
-  maxAvoidSpeed: 2
-  maxFollowSpeed: 3
-  maxBackToLeaderSpeed: 3
-  secondToFriend: 5
   getScare: {x: 0, y: 0, z: 0}
-  minDist: 5
-  centerOfTheAttention: 1
-  introvertness: 7
+  multiplicatorFriendship: 0.33
   friendshipSprite: {fileID: 5088405812803266550}
   currentState: 0
   viewRange: 0
@@ -694,6 +684,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coin
       objectReference: {fileID: 0}
+    - target: {fileID: 4795257679256853236, guid: c290355867660c14ca9e2c75328873f1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5217775371884480676, guid: c290355867660c14ca9e2c75328873f1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -804,6 +799,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570655627532739067, guid: 2df760326f93fac46b17db592d4f8d48,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570655627532739067, guid: 2df760326f93fac46b17db592d4f8d48,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570655627532739067, guid: 2df760326f93fac46b17db592d4f8d48,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570655627532739067, guid: 2df760326f93fac46b17db592d4f8d48,
+        type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570655627532739067, guid: 2df760326f93fac46b17db592d4f8d48,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570655627532739067, guid: 2df760326f93fac46b17db592d4f8d48,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570655627532739067, guid: 2df760326f93fac46b17db592d4f8d48,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2df760326f93fac46b17db592d4f8d48, type: 3}

@@ -180,7 +180,7 @@ MonoBehaviour:
   bumpVector: {x: 0, y: 0, z: 0}
   bumpReducer: 0.33
   timerBumper: 0
-  basicSpeed: 2
+  gmplValue: {fileID: 11400000, guid: 4f2455e09e3104b47957f0fd4f10eccb, type: 2}
   triangleToHelp: {fileID: 0}
   spurpispsprite: {fileID: 8476009485517894515}
 --- !u!54 &8230596343418786108

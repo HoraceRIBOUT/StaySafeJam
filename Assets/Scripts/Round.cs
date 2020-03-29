@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Round : Triangle
 {
+    public FoxVal gmplValue;
+
     [Header("Move")]
-    public float basicSpeed = 1f;
     private Vector3 currentTarget = Vector3.zero;
     private bool idleWait = false;
     public Triangle triangleToHelp;
@@ -13,6 +14,8 @@ public class Round : Triangle
     //Start
     public void Start()
     {
+        rangeToGetAwayFrom = gmplValue.rangeToGetAwayFrom;
+
         newIdlePos();
         StartCoroutine(idleTargetting());
     }
@@ -24,7 +27,7 @@ public class Round : Triangle
             idleWait = false;
             yield return new WaitUntil(() => (this.transform.position - currentTarget).sqrMagnitude < 0.4f);
             idleWait = true;
-            float randomWait = Random.Range(0f, 1.2f);
+            float randomWait = Random.Range(gmplValue.waitRange.x, gmplValue.waitRange.x);
             if (triangleToHelp != null)
             {
                 randomWait = 2f;
@@ -37,8 +40,8 @@ public class Round : Triangle
     void newIdlePos()
     {
         currentTarget = this.transform.position;
-        currentTarget.x += Random.Range(-4f, 4f);
-        currentTarget.z += Random.Range(-8f, 8f);
+        currentTarget.x += Random.Range(gmplValue.idleRangeX.x, gmplValue.idleRangeX.y);
+        currentTarget.z += Random.Range(gmplValue.idleRangeY.x, gmplValue.idleRangeY.y);
     }
 
     public void CallForHelp(Triangle triangle)
@@ -57,7 +60,7 @@ public class Round : Triangle
         idleWait = true;
         //Surprise
         spurpispsprite.color = Color.white;
-        yield return new WaitForSeconds(0.33f);
+        yield return new WaitForSeconds(gmplValue.surprisePause);
         idleWait = false;
         spurpispsprite.color = Color.clear;
         //Surprise
@@ -67,15 +70,15 @@ public class Round : Triangle
     void newIdlePos(Vector3 position)
     {
         currentTarget = position;
-        currentTarget.x += Random.Range(-0.5f, 0.5f);
-        currentTarget.z += Random.Range(-0.5f, 0.5f);
+        currentTarget.x += Random.Range(-1f, 1f);
+        currentTarget.z += Random.Range(-1f, 1f);
     }
 
     private void Update()
     {
         if (!idleWait)
         {
-            Vector3 idleMove = (currentTarget - this.transform.position).normalized * basicSpeed;
+            Vector3 idleMove = (currentTarget - this.transform.position).normalized * gmplValue.basicSpeed;
             this.transform.Translate(idleMove * Time.deltaTime);
         }
     }

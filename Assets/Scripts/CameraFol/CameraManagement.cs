@@ -23,9 +23,6 @@ public class CameraManagement : MonoBehaviour
     [Header("Trauma")]
     [Range(0,1)]
     public float trauma;
-    public float screenSpeed = 10f;
-    public float screenShakeIntensity = 1f;
-    public float screenShakeDecreaseTime = 0.5f;
 
 
     // Start is called before the first frame update
@@ -50,7 +47,6 @@ public class CameraManagement : MonoBehaviour
         finalTarget /= sumForInterest;
 
         //Surely : add a lerp / delay
-
         finalTarget.y = firstYPos;
         finalTarget.z += firstZPos;
 
@@ -64,9 +60,9 @@ public class CameraManagement : MonoBehaviour
         //Screenshake part
         if (trauma>0)
         {
-            screenVec.x = (Mathf.PerlinNoise(1, Time.timeSinceLevelLoad * screenSpeed) - 0.5f ) * trauma * trauma * screenShakeIntensity;
-            screenVec.z = (Mathf.PerlinNoise(Time.timeSinceLevelLoad * screenSpeed, 1) - 0.5f ) * trauma * trauma * screenShakeIntensity;
-            trauma -= Time.deltaTime * screenShakeDecreaseTime;
+            screenVec.x = (Mathf.PerlinNoise(1, Time.timeSinceLevelLoad * GameManager.Instance.feedbackValue.screenShakeSpeed) - 0.5f ) * trauma * trauma * GameManager.Instance.feedbackValue.screenShakeIntensity;
+            screenVec.z = (Mathf.PerlinNoise(Time.timeSinceLevelLoad * GameManager.Instance.feedbackValue.screenShakeSpeed, 1) - 0.5f ) * trauma * trauma * GameManager.Instance.feedbackValue.screenShakeIntensity;
+            trauma -= Time.deltaTime * GameManager.Instance.feedbackValue.screenShakeDecreaseTime;
         }
 
         this.transform.position = realPosition + screenVec;

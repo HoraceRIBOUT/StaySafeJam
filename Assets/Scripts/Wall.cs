@@ -20,6 +20,9 @@ public class Wall : Triangle
 
     public override void Bump()
     {
+        anim.SetTrigger("Ask");
         return;
     }
+
+    public Animator anim;
 }
