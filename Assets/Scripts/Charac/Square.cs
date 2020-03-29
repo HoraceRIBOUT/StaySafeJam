@@ -105,6 +105,7 @@ public class Square : MonoBehaviour
 
                     if (listOfPeopleIDontLike.Count != 0 && moveAwayVec != Vector3.zero && listOfPeopleIDontLike.Count * 2 + listOfPotentialVictim.Count > 3 * (listOfFriends.Count + 1))
                     {
+                        finalMove -= finalMove;
                         finalMove = moveAwayVec;
                     }
 
