@@ -12,4 +12,7 @@ public class FeedbackVal : ScriptableObject
     public float screenShakeSpeed = 10f;
     public float screenShakeIntensity = 1f;
     public float screenShakeDecreaseTime = 0.5f;
+
+    public float soundBarkHero = 1f;
+    public float soundBarkDoggo = 0.2f;
 }
