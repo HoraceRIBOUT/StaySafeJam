@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public CameraManagement cameraScreen;
     public Move hero;
     public SoundManager sndManager;
+    public FeedbackVal feedbackValue;
 
     private void Awake()
     {

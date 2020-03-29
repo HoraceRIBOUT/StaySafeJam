@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class Square : MonoBehaviour
 {
+    public WolfVal gmplValue;
+
     [Header("Move")]
     public float currentSpeed = 1f;
-    public float idleSpeed = 1f;
     private Vector3 currentTarget = Vector3.zero;
     private bool idleWait = false;
-    public float bullySpeed = 5f;
 
     [Header("Bully")]
     public List<Transform> listOfPotentialVictim = new List<Transform>();
     public List<Round> listOfPeopleIDontLike = new List<Round>();
     public List<Square> listOfFriends = new List<Square>();
-    public float bumpIntensity = 5f;
-
     public float timerBump = 0f;
-    public float howLongStayLaughing = 5f;
 
 
     public enum State
@@ -31,10 +28,18 @@ public class Square : MonoBehaviour
     [Header("State")]
     public State currentState = State.idle;
 
+    [Header("Visual")]
+    public SpriteRenderer icon;
+    public List<Sprite> spriteList = new List<Sprite>(); //0 normal / 1: bully
+
+    [Header("Bark")]
+    public SpriteRenderer barkRenderer;
+    public Transform rotateBark;
+
     //Start
     public void Start()
     {
-        currentSpeed = idleSpeed;
+        currentSpeed = gmplValue.idleSpeed;
         StartCoroutine(idleTargetting());
     }
 
@@ -46,7 +51,7 @@ public class Square : MonoBehaviour
             newIdlePos();
             yield return new WaitUntil(() => currentState == State.idle && (this.transform.position - currentTarget).sqrMagnitude < 0.4f);
             idleWait = true;
-            float randomWait = Random.Range(0f, 1.2f);
+            float randomWait = Random.Range(gmplValue.waitRange.x, gmplValue.waitRange.x);
             yield return new WaitForSeconds(randomWait);
         }
 
@@ -54,8 +59,8 @@ public class Square : MonoBehaviour
     void newIdlePos()
     {
         currentTarget = this.transform.position;
-        currentTarget.x += Random.Range(-4f, 4f);
-        currentTarget.z += Random.Range(-8f, 8f);
+        currentTarget.x += Random.Range(gmplValue.idleRangeX.x, gmplValue.idleRangeX.y);
+        currentTarget.z += Random.Range(gmplValue.idleRangeY.x, gmplValue.idleRangeY.y);
     }
 
     // Update is called once per frame
@@ -69,10 +74,10 @@ public class Square : MonoBehaviour
                     goesBully();
                 }
 
-                if (currentSpeed > idleSpeed)
+                if (currentSpeed > gmplValue.idleSpeed)
                     currentSpeed -= Time.deltaTime * 1f;
                 else
-                    currentSpeed = idleSpeed;
+                    currentSpeed = gmplValue.idleSpeed;
 
 
                 if (!idleWait)
@@ -139,9 +144,6 @@ public class Square : MonoBehaviour
                 break;
         }
     }
-    [Header("Visual")]
-    public SpriteRenderer icon;
-    public List<Sprite> spriteList = new List<Sprite>(); //0 normal / 1: bully
 
     public Vector3 addMoveAwayFromPeopleIDontLike()
     {
@@ -157,7 +159,7 @@ public class Square : MonoBehaviour
             /*if (dist < tr.rangeToGetAwayFrom * tr.rangeToGetAwayFrom)*/
             {
                 diff /= dist;//Approx dist = 0 --> 60
-                diff *= 24f;
+                diff *= gmplValue.howMuchDontLikeFox;
                 directionToAvoidPeople += diff;
                 //Debug.DrawRay(this.transform.position, diff * minDist, Color.green);
             }
@@ -171,7 +173,7 @@ public class Square : MonoBehaviour
 
     void goesBully()
     {
-        currentSpeed = bullySpeed;
+        currentSpeed = gmplValue.bullySpeed;
         currentState = State.bully;
     }
 
@@ -183,13 +185,9 @@ public class Square : MonoBehaviour
 
     void goesLaugh()
     {
-        timerBump = howLongStayLaughing;
+        timerBump = gmplValue.howLongStayLaughing;
         currentState = State.laugh;
     }
-
-    [Header("Bark")]
-    public SpriteRenderer barkRenderer;
-    public Transform rotateBark;
 
     public void BarkInThatDirection(Vector3 triaPos)
     {
@@ -224,7 +222,7 @@ public class Square : MonoBehaviour
                 return;
             }
             //Shuld be a method in triangle
-            tria.bumpVector = (tria.transform.position - this.transform.position).normalized * bumpIntensity;
+            tria.bumpVector = (tria.transform.position - this.transform.position).normalized * gmplValue.bumpIntensity;
             tria.timerBumper = 0;
             tria.Bump();
 

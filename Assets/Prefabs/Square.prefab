@@ -43,7 +43,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 5.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3718427353815451538
 MonoBehaviour:
@@ -284,15 +284,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e9c436bfcc86724aa84630d46b87707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gmplValue: {fileID: 11400000, guid: 50c90cb84fcc3234fae00bab37f63b33, type: 2}
   currentSpeed: 3
-  idleSpeed: 3
-  bullySpeed: 7
   listOfPotentialVictim: []
   listOfPeopleIDontLike: []
   listOfFriends: []
-  bumpIntensity: 10
   timerBump: 0
-  howLongStayLaughing: 1
   currentState: 0
   icon: {fileID: 3943083790890073393}
   spriteList:

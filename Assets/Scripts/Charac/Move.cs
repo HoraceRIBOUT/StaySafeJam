@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Move : Triangle
 {
+    public HeroVal gmplVal;
+
     [Header("Hero Move")]
-    public float basicSpeed = 5f;
-
-    public float moveIncapacity = 0.5f;
-
     public List<Round> foxesAtReach = new List<Round>();
     public List<TrAIngle> doggoAtReach = new List<TrAIngle>();
 
@@ -17,6 +15,9 @@ public class Move : Triangle
     // Start is called before the first frame update
     void Start()
     {
+        rangeToGetAwayFrom = gmplVal.rangeToGetAwayFrom;
+        bumpDurationReducer = gmplVal.bumpDurationReducer;
+
         foxesAtReach.Clear();
     }
 
@@ -73,8 +74,8 @@ public class Move : Triangle
             float joystickIntensity = Mathf.Min(1, movement.sqrMagnitude);
             Vector2 direction = movement.normalized;
 
-            finalMove.x = direction.x * joystickIntensity * basicSpeed;
-            finalMove.z = direction.y * joystickIntensity * basicSpeed;
+            finalMove.x = direction.x * joystickIntensity * gmplVal.speed;
+            finalMove.z = direction.y * joystickIntensity * gmplVal.speed;
 
         }
         else
@@ -84,10 +85,10 @@ public class Move : Triangle
 
 
 
-            finalMove.x = bumpVector.x * basicSpeed + direction.x * joystickIntensity * Mathf.Min(timerBumper, basicSpeed);
-            finalMove.z = bumpVector.z * basicSpeed + direction.y * joystickIntensity * Mathf.Min(timerBumper, basicSpeed);
-            timerBumper += Time.deltaTime * moveIncapacity;
-            bumpVector -= (bumpVector * bumpReducer) * Time.deltaTime;
+            finalMove.x = bumpVector.x * gmplVal.bumpSpeed + direction.x * joystickIntensity * Mathf.Min(timerBumper, gmplVal.speed);
+            finalMove.z = bumpVector.z * gmplVal.bumpSpeed + direction.y * joystickIntensity * Mathf.Min(timerBumper, gmplVal.speed);
+            timerBumper += Time.deltaTime * gmplVal.resistanceToBump;
+            bumpVector -= bumpVector * Time.deltaTime * bumpDurationReducer;
         }
 
 
@@ -98,7 +99,7 @@ public class Move : Triangle
     public override void Bump()
     {
         //screenshake
-        GameManager.Instance.cameraScreen.Screenshake(0.7f);
+        GameManager.Instance.cameraScreen.Screenshake(GameManager.Instance.feedbackValue.screenshakeForHeroBump);
     }
 
     public override TriangleType getType()
