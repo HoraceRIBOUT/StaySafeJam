@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Wall : Triangle
 {
+    public void Start()
+    {
+        friendship = -20;
+    }
     public void Update()
     {
         lastMove = Vector3.zero;
