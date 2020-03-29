@@ -74,6 +74,12 @@ public class TrAIngle : Triangle
 
     public void Update()
     {
+        if (Input.GetKey(KeyCode.F))
+        {
+            UpdateFriendship(Time.deltaTime);
+        }
+
+
         Vector3 finalMove = Vector3.zero;
         //WOLF DODGE
         if (listOfViewSquare.Count != 0 /*&& groupSize > square.groupSize*/)
@@ -250,7 +256,35 @@ public class TrAIngle : Triangle
         else if(value > 0)
             friendship = 10;
 
-        friendshipSprite.color = Color.Lerp(Color.white - Color.black, Color.white, (friendship / 10f));
+        UpdateVisual();
+    }
+
+    [Header("Friendship Aimation")]
+    public SpriteRenderer coinAnim01;
+    public SpriteRenderer coinAnim02;
+    public List<Sprite> allSpriteToShow;
+
+    public void UpdateVisual()
+    {
+        float value01 = (friendship / 10f);
+        float index = value01 * allSpriteToShow.Count;
+        //
+        int indexSprite = (int)index;
+        if(indexSprite >= allSpriteToShow.Count - 1)
+        {
+            coinAnim01.sprite = allSpriteToShow[allSpriteToShow.Count - 1];
+            coinAnim01.color = Color.white;
+            return;
+        }
+
+        Debug.Log(".");
+        coinAnim01.sprite = allSpriteToShow[indexSprite];
+        Debug.Log("Here");
+        coinAnim02.sprite = allSpriteToShow[Mathf.Min(indexSprite + 1, allSpriteToShow.Count-2)];
+
+        float lerp = index - indexSprite;
+        Debug.Log("lerp = " + lerp+ " index = " + index + " indexSprite = " + indexSprite);
+        coinAnim02.color = Color.Lerp(Color.white - Color.black, Color.white, lerp);
     }
 
 
