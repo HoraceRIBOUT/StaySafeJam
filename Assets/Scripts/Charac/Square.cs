@@ -189,9 +189,14 @@ public class Square : MonoBehaviour
 
     [Header("Bark")]
     public SpriteRenderer barkRenderer;
+    public Transform rotateBark;
 
     public void BarkInThatDirection(Vector3 triaPos)
     {
+        float dot = Vector3.Dot(Vector3.forward, (triaPos - this.transform.position).normalized);
+        float sign = Mathf.Sign(Vector3.Cross(Vector3.forward, (triaPos - this.transform.position)).y);
+        rotateBark.localEulerAngles = Vector3.forward * (dot - 1) * 90 * sign;
+
         barkRenderer.color = Color.white;
         StartCoroutine(BarkFadeAway());
     }

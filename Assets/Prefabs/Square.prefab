@@ -288,6 +288,7 @@ MonoBehaviour:
   idleSpeed: 3
   bullySpeed: 7
   listOfPotentialVictim: []
+  listOfPeopleIDontLike: []
   listOfFriends: []
   bumpIntensity: 10
   timerBump: 0
@@ -298,6 +299,7 @@ MonoBehaviour:
   - {fileID: 3286163911610860551, guid: 564061945f4ebc94abd760a073e3918c, type: 3}
   - {fileID: 3286163911610860551, guid: 1b3284725b133f140a33c204d95643f1, type: 3}
   barkRenderer: {fileID: 2446628882418473885}
+  rotateBark: {fileID: 5643031809928343598}
 --- !u!65 &3943083792532967273
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -422,14 +424,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7598497925136948889}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.10000001, z: 0}
   m_Children:
   - {fileID: 6433631211324816297}
   m_Father: {fileID: 3943083792246682379}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!1001 &99554424738875513
 PrefabInstance:
   m_ObjectHideFlags: 0
