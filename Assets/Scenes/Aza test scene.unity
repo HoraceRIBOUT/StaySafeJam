@@ -8932,6 +8932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 969339def3016144697887e1173c4db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inGame: 0
   pauseCanvas: {fileID: 2075305811}
 --- !u!114 &1550912732
 MonoBehaviour:
@@ -8947,6 +8948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuCanvas: {fileID: 1426890943}
   creditsCanvas: {fileID: 199857090}
+  pauseCanvas: {fileID: 0}
   buttonSound: {fileID: 0}
   hero: {fileID: 0}
 --- !u!4 &1550912733
