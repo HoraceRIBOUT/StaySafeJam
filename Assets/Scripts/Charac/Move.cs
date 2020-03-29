@@ -71,6 +71,7 @@ public class Move : Triangle
     public override void Bump()
     {
         //screenshake
+        GameManager.Instance.cameraScreen.Screenshake(0.7f);
     }
 
     public override TriangleType getType()

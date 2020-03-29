@@ -149,6 +149,26 @@ public class Square : MonoBehaviour
         currentState = State.laugh;
     }
 
+    [Header("Bark")]
+    public SpriteRenderer barkRenderer;
+
+    public void BarkInThatDirection(Vector3 triaPos)
+    {
+        barkRenderer.color = Color.white;
+        StartCoroutine(BarkFadeAway());
+    }
+
+    public IEnumerator BarkFadeAway()
+    {
+        float lerp = 0;
+        while(lerp < 1)
+        {
+            barkRenderer.color = Color.Lerp(Color.white, Color.white - Color.black, lerp * lerp);
+            lerp += Time.deltaTime * 2f;
+            yield return new WaitForSeconds(0.01f);
+        }
+        barkRenderer.color = Color.white - Color.black;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -161,6 +181,9 @@ public class Square : MonoBehaviour
             tria.Bump();
 
             goesLaugh();
+
+            //bark in that direction
+            BarkInThatDirection(tria.transform.position);
         }
 
         Debug.Log("Collision name"+collision.gameObject.name);

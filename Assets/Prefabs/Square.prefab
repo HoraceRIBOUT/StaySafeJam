@@ -297,6 +297,7 @@ MonoBehaviour:
   spriteList:
   - {fileID: 3286163911610860551, guid: 564061945f4ebc94abd760a073e3918c, type: 3}
   - {fileID: 3286163911610860551, guid: 1b3284725b133f140a33c204d95643f1, type: 3}
+  barkRenderer: {fileID: 2446628882418473885}
 --- !u!65 &3943083792532967273
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -522,6 +523,12 @@ PrefabInstance:
 --- !u!4 &6433631211324816297 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6352724504061457360, guid: b5ac64bc6a51a234e871e3b28af105ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 99554424738875513}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &2446628882418473885 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2347954552384426980, guid: b5ac64bc6a51a234e871e3b28af105ac,
     type: 3}
   m_PrefabInstance: {fileID: 99554424738875513}
   m_PrefabAsset: {fileID: 0}

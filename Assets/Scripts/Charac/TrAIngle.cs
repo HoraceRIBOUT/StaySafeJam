@@ -317,7 +317,7 @@ public class TrAIngle : Triangle
         if(friendship > 8)
         {
             float value = (friendship - 8f) / 2f;
-
+            GameManager.Instance.cameraScreen.Screenshake(0.1f * value);
         }
     }
 
