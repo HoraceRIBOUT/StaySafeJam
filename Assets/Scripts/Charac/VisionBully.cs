@@ -27,6 +27,12 @@ public class VisionBully : MonoBehaviour
             {
                 return;
             }
+            Round round = triangle.GetComponent<Round>();
+            if (round != null)
+            {
+                father.listOfPeopleIDontLike.Add(round);
+                return;
+            }
             if (triangle.GetComponent<TrAIngle>())
             {
                 if (triangle.GetComponent<TrAIngle>().listOfFriends.Count >= 3 * (father.listOfFriends.Count + 1))

@@ -21,6 +21,7 @@ public class TrAIngle : Triangle
     public float maxFollowSpeed = 3f;
     public float maxBackToLeaderSpeed = 3f;
 
+    public Vector3 getScare = Vector3.zero;
 
     public float minDist = 12f;
 
@@ -197,6 +198,7 @@ public class TrAIngle : Triangle
 
                     if (friendship >= 5 && listOfFriends.Count==0)
                     {
+                        tr.GetComponent<Move>().friendNumbers++;
                         listOfFriends.Add(tr);
                     }
                 }
@@ -227,7 +229,10 @@ public class TrAIngle : Triangle
                 Debug.Log("THEN : " + directionToAvoidPeople + " final Move = " + finalMove);
         }
         else{ if (currentState == State.inGroup){ newIdlePos();currentState = State.idle;}}
-        
+
+        //If get scare
+        finalMove += getScare;
+
         //FINAL
         finalMove = addBumpyness(finalMove);
         this.transform.Translate(finalMove * Time.deltaTime);
@@ -304,6 +309,12 @@ public class TrAIngle : Triangle
             EndBump();
         }
         return moveVector;
+    }
+
+    public void GetScared(Vector3 direction)
+    {
+        float friendshipValue = Mathf.Clamp01((6 - friendship) / 6f);
+        getScare = direction.normalized * maxRunAwaySpeed * friendshipValue;
     }
 
     [Header("Bump")]

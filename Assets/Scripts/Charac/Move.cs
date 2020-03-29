@@ -9,10 +9,15 @@ public class Move : Triangle
 
     public float moveIncapacity = 0.5f;
 
+    public List<Round> foxesAtReach = new List<Round>();
+    public List<TrAIngle> doggoAtReach = new List<TrAIngle>();
+
+    public int friendNumbers = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        foxesAtReach.Clear();
     }
 
     // Update is called once per frame
@@ -27,7 +32,29 @@ public class Move : Triangle
             Application.Quit();
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AskForHelp();
+        }
+
         Movement();
+    }
+
+    public Animator askForHelpAnim;
+
+    public void AskForHelp()
+    {
+        askForHelpAnim.SetTrigger("Ask");
+
+        foreach (Round fox in foxesAtReach)
+        {
+            fox.CallForHelp(this);
+        }
+
+        foreach (TrAIngle doggo in doggoAtReach)
+        {
+            doggo.GetScared(doggo.transform.position - this.transform.position);
+        }
     }
 
 

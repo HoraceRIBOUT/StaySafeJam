@@ -9890,6 +9890,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 93168150}
     m_Modifications:
+    - target: {fileID: 3340265109674338966, guid: 019f6d91ce599464195b26b4f5db5507,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6191185244288058110, guid: 019f6d91ce599464195b26b4f5db5507,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9949,6 +9954,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hero
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382377240229261086, guid: 019f6d91ce599464195b26b4f5db5507,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382377240229261086, guid: 019f6d91ce599464195b26b4f5db5507,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382377240229261086, guid: 019f6d91ce599464195b26b4f5db5507,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 019f6d91ce599464195b26b4f5db5507, type: 3}

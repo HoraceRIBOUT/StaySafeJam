@@ -13,6 +13,7 @@ public class Square : MonoBehaviour
 
     [Header("Bully")]
     public List<Transform> listOfPotentialVictim = new List<Transform>();
+    public List<Round> listOfPeopleIDontLike = new List<Round>();
     public List<Square> listOfFriends = new List<Square>();
     public float bumpIntensity = 5f;
 
@@ -77,6 +78,9 @@ public class Square : MonoBehaviour
                 if (!idleWait)
                 {
                     Vector3 idleMove = (currentTarget - this.transform.position).normalized * currentSpeed;
+
+                    idleMove += addMoveAwayFromPeopleIDontLike();
+
                     this.transform.Translate(idleMove * Time.deltaTime);
                 }
                 break;
@@ -89,8 +93,10 @@ public class Square : MonoBehaviour
                 {
                     //itere on all triangle and choose which one to bully until it's empty
                     Vector3 direction = (listOfPotentialVictim[0].position - this.transform.position).normalized;
-
                     Vector3 finalMove = direction * currentSpeed;
+
+                    finalMove += addMoveAwayFromPeopleIDontLike();
+
                     this.transform.Translate(finalMove * Time.deltaTime);
 
                 }
@@ -130,6 +136,32 @@ public class Square : MonoBehaviour
     [Header("Visual")]
     public SpriteRenderer icon;
     public List<Sprite> spriteList = new List<Sprite>(); //0 normal / 1: bully
+
+    public Vector3 addMoveAwayFromPeopleIDontLike()
+    {
+        float howManyToAvoid = 0;
+        Vector3 directionToAvoidPeople = Vector3.zero;
+        foreach (Round fox in listOfPeopleIDontLike)
+        {
+            if (fox.triangleToHelp == null)
+                continue;
+            Vector3 diff = (this.transform.position - fox.transform.position);
+            diff.y = 0;
+            float dist = diff.sqrMagnitude;
+            /*if (dist < tr.rangeToGetAwayFrom * tr.rangeToGetAwayFrom)*/
+            {
+                diff /= dist;//Approx dist = 0 --> 60
+                diff *= 24f;
+                directionToAvoidPeople += diff;
+                //Debug.DrawRay(this.transform.position, diff * minDist, Color.green);
+            }
+            howManyToAvoid++;
+        }
+        directionToAvoidPeople /= (howManyToAvoid==0?1:howManyToAvoid);
+
+        return directionToAvoidPeople;
+    }
+
 
     void goesBully()
     {
