@@ -35,7 +35,6 @@ public class SoundManager : MonoBehaviour
         happier5Music.volume = 0;
         happier8Music.volume = 0;
         happier10Music.volume = 0;
-        Debug.Log("Start  ? whola !");
     }
 
     public void UpdateFriendNumer(int numberOfFriends)

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: DogVal
   m_EditorClassIdentifier: 
   idleSpeed: 1
+  runAwayFromDog: 2
+  fearHeroAskHelp: 4
   maxRunAwaySpeed: 1
   maxIdleSpeed: 1
   maxAvoidSpeed: 1
