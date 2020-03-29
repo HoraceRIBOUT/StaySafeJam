@@ -98,6 +98,7 @@ public class TrAIngle : Triangle
         //IDLE MOVE
         else
         {
+            faceSprite.sprite = listSpriteFace[bumpVector.sqrMagnitude > 0.001f ? 1 : 0];
             Vector3 idleMove = Vector3.zero;
             if (currentSpeed > gmplValue.idleSpeed)
                 currentSpeed -= Time.deltaTime * 2f;
