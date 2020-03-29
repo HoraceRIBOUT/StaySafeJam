@@ -23,9 +23,9 @@ MonoBehaviour:
   idleRangeY: {x: -3, y: 3}
   secondToFriend: 5
   rangeToGetAwayFrom: 1
-  centerOfTheAttention: 1
+  centerOfTheAttention: 0.5
   introvertness: 1
-  followHero: 1
+  followHero: 0.3
   bumpIntensity: 4
   bumpDurationReducer: 7
   minDist: 12

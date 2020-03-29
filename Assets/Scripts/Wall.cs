@@ -20,9 +20,12 @@ public class Wall : Triangle
 
     public override void Bump()
     {
-        anim.SetTrigger("Ask");
+        foreach (Animator anim in animList)
+        {
+            anim.SetTrigger("Ask");
+        }
         return;
     }
 
-    public Animator anim;
+    public List<Animator> animList;
 }

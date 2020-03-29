@@ -5,7 +5,10 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public AudioSource mainMusic;
-    public AudioSource happierMusic;
+    public AudioSource happier3Music;
+    public AudioSource happier5Music;
+    public AudioSource happier8Music;
+    public AudioSource happier10Music;
     public AudioSource attackMusic;
 
     [Header("SFX")]
@@ -22,22 +25,49 @@ public class SoundManager : MonoBehaviour
 
 
     public float timerForAttack = 0f;
-    public float volumeHappier = 0;
+    public int volumeHappier = 0;
 
     public void Start()
     {
         volumeBark = wolfBarkFX.volume;
         mainMusic.volume = 1;
-        happierMusic.volume = volumeHappier;
+        happier3Music.volume = 0;
+        happier5Music.volume = 0;
+        happier8Music.volume = 0;
+        happier10Music.volume = 0;
+        Debug.Log("Start  ? whola !");
     }
 
-    public void UpdateMusic(float lerp)
+    public void UpdateFriendNumer(int numberOfFriends)
     {
-        Mathf.Clamp01(lerp);
-        volumeHappier = lerp;
+        volumeHappier = numberOfFriends;
 
+        UpdateMusic();
+    }
+
+    void UpdateMusic()
+    {
         mainMusic.volume = 1;
-        happierMusic.volume = volumeHappier;
+
+        happier3Music.volume = lerpBetween(volumeHappier, 0, 3);
+        happier5Music.volume = lerpBetween(volumeHappier, 3, 5);
+        happier8Music.volume = lerpBetween(volumeHappier, 5, 8);
+        happier10Music.volume = lerpBetween(volumeHappier, 8, 10);
+    }
+    void UpdateMusic(float atten)
+    {
+        mainMusic.volume = 1 * atten;
+
+        happier3Music.volume = lerpBetween(volumeHappier, 0, 3) * atten;
+        happier5Music.volume = lerpBetween(volumeHappier, 3, 5) * atten;
+        happier8Music.volume = lerpBetween(volumeHappier, 5, 8) * atten;
+        happier10Music.volume = lerpBetween(volumeHappier, 8, 10) * atten;
+    }
+
+    public float lerpBetween(float value, int min, int max)
+    {
+        float res = (float)(value - min) / (float)(max - min);
+        return Mathf.Clamp01(res);
     }
 
     public void LaunchAttack()
@@ -53,8 +83,6 @@ public class SoundManager : MonoBehaviour
             if (attackMusic.volume < 1)
             {
                 attackMusic.volume += Time.deltaTime * 3f;
-                mainMusic.volume = 1 - attackMusic.volume;
-                happierMusic.volume = (1 - attackMusic.volume) * volumeHappier;
             }
         }
         else
@@ -62,8 +90,7 @@ public class SoundManager : MonoBehaviour
             if (attackMusic.volume > 0)
             {
                 attackMusic.volume -= Time.deltaTime * 3f;
-                mainMusic.volume = 1 - attackMusic.volume;
-                happierMusic.volume = (1 - attackMusic.volume) * volumeHappier;
+                UpdateMusic(1 - attackMusic.volume);
             }
         }
     }

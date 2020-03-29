@@ -12131,6 +12131,11 @@ PrefabInstance:
       propertyPath: targetToFollow
       value: 
       objectReference: {fileID: 1220754267}
+    - target: {fileID: 7667477004719673634, guid: eb0e1c0c9a0b50544afd3f1a42d64c81,
+        type: 3}
+      propertyPath: m_Name
+      value: Happier3
+      objectReference: {fileID: 0}
     - target: {fileID: 7667477005850899440, guid: eb0e1c0c9a0b50544afd3f1a42d64c81,
         type: 3}
       propertyPath: hero

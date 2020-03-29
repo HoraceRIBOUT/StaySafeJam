@@ -192,7 +192,8 @@ public class TrAIngle : Triangle
                     if (friendship >= 5 && !listOfFriends.Contains(tr))
                     { 
                         tr.GetComponent<Move>().friendNumbers++;
-                        GameManager.Instance.sndManager.UpdateMusic((tr.GetComponent<Move>().friendNumbers / 10f));
+                        GameManager.Instance.sndManager.UpdateFriendNumer((tr.GetComponent<Move>().friendNumbers));
+                        Debug.Log("+1");
                         GameManager.Instance.sndManager.PlayDogFriendly();
                         listOfFriends.Add(tr);
                     }
