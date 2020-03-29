@@ -95,7 +95,13 @@ public class Square : MonoBehaviour
                     Vector3 direction = (listOfPotentialVictim[0].position - this.transform.position).normalized;
                     Vector3 finalMove = direction * currentSpeed;
 
-                    finalMove += addMoveAwayFromPeopleIDontLike();
+                    Vector3 moveAwayVec = addMoveAwayFromPeopleIDontLike();
+                    finalMove += moveAwayVec;
+
+                    if (listOfPeopleIDontLike.Count != 0 && moveAwayVec != Vector3.zero && listOfPeopleIDontLike.Count * 2 + listOfPotentialVictim.Count > 3 * (listOfFriends.Count + 1))
+                    {
+                        finalMove = moveAwayVec;
+                    }
 
                     this.transform.Translate(finalMove * Time.deltaTime);
 
@@ -207,6 +213,11 @@ public class Square : MonoBehaviour
         Triangle tria = collision.gameObject.GetComponent<Triangle>();
         if (tria != null) 
         {
+            if (tria.getType() == Triangle.TriangleType.fox)
+            {
+                //wait bro, no bump
+                return;
+            }
             //Shuld be a method in triangle
             tria.bumpVector = (tria.transform.position - this.transform.position).normalized * bumpIntensity;
             tria.timerBumper = 0;

@@ -13,6 +13,7 @@ public class Round : Triangle
     //Start
     public void Start()
     {
+        newIdlePos();
         StartCoroutine(idleTargetting());
     }
 
@@ -21,7 +22,6 @@ public class Round : Triangle
         while (true)
         {
             idleWait = false;
-            newIdlePos();
             yield return new WaitUntil(() => (this.transform.position - currentTarget).sqrMagnitude < 0.4f);
             idleWait = true;
             float randomWait = Random.Range(0f, 1.2f);
@@ -30,6 +30,7 @@ public class Round : Triangle
                 randomWait = 2f;
             }
             yield return new WaitForSeconds(randomWait);
+            newIdlePos();
         }
 
     }
@@ -42,22 +43,32 @@ public class Round : Triangle
 
     public void CallForHelp(Triangle triangle)
     {
+        triangleToHelp = triangle;
         newIdlePos(triangleToHelp.transform.position);
+
+        StopAllCoroutines();
         StartCoroutine(surprisedPause());
     }
+
+    public SpriteRenderer spurpispsprite;
 
     public IEnumerator surprisedPause()
     {
         idleWait = true;
+        //Surprise
+        spurpispsprite.color = Color.white;
         yield return new WaitForSeconds(0.33f);
         idleWait = false;
+        spurpispsprite.color = Color.clear;
+        //Surprise
+        StartCoroutine(idleTargetting());
     }
 
     void newIdlePos(Vector3 position)
     {
-        currentTarget = this.transform.position;
-        currentTarget.x += Random.Range(-4f, 4f);
-        currentTarget.z += Random.Range(-8f, 8f);
+        currentTarget = position;
+        currentTarget.x += Random.Range(-0.5f, 0.5f);
+        currentTarget.z += Random.Range(-0.5f, 0.5f);
     }
 
     private void Update()
@@ -73,7 +84,7 @@ public class Round : Triangle
 
     public override TriangleType getType()
     {
-        throw new System.NotImplementedException();
+        return TriangleType.fox;
     }
 
     public override void Bump()

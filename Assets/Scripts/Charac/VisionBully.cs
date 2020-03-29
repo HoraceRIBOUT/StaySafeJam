@@ -30,7 +30,8 @@ public class VisionBully : MonoBehaviour
             Round round = triangle.GetComponent<Round>();
             if (round != null)
             {
-                father.listOfPeopleIDontLike.Add(round);
+                if (!father.listOfPeopleIDontLike.Contains(round))
+                    father.listOfPeopleIDontLike.Add(round);
                 return;
             }
             if (triangle.GetComponent<TrAIngle>())
@@ -70,6 +71,16 @@ public class VisionBully : MonoBehaviour
         {
             if (triangle.GetComponent<Wall>())
             {
+                return;
+            }
+
+            Round round = triangle.GetComponent<Round>();
+            if (round != null)
+            {
+                if(father.listOfPeopleIDontLike.Contains(round))
+                {
+                    father.listOfPeopleIDontLike.Remove(round);
+                }
                 return;
             }
 

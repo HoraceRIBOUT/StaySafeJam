@@ -21,7 +21,7 @@ public abstract class Triangle : MonoBehaviour
         dog,
         wall,
         hero,
-
+        fox,
     }
 
     public abstract TriangleType getType();
