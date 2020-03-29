@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e561c6001e81f45b6401493d1f90c7, type: 3}
   m_Name: FBValue
   m_EditorClassIdentifier: 
+  screenshakeForHeroBump: 0.7
+  screenshakeForDog: 0.2
+  screenShakeSpeed: 20
+  screenShakeIntensity: 2
+  screenShakeDecreaseTime: 0.8

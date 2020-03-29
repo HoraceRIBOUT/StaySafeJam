@@ -16,7 +16,7 @@ MonoBehaviour:
   waitRange: {x: 0.4, y: 1.2}
   idleRangeX: {x: -4, y: 4}
   idleRangeY: {x: -8, y: 8}
-  bullySpeed: 5
+  bullySpeed: 7
   bumpIntensity: 5
   howLongStayLaughing: 2
   howMuchDontLikeFox: 40

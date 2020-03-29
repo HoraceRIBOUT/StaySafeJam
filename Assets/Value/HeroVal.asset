@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 094d9eb8ab65f4042970bc1a82c3845d, type: 3}
   m_Name: HeroVal
   m_EditorClassIdentifier: 
+  speed: 6
+  bumpSpeed: 9
+  bumpDurationReducer: 5
+  rangeToGetAwayFrom: 1
+  resistanceToBump: 3
