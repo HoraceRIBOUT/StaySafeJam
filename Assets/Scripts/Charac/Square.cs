@@ -229,6 +229,7 @@ public class Square : MonoBehaviour
             tria.Bump();
 
             goesLaugh();
+            GameManager.Instance.sndManager.PlayWolfBark(tria.getType() == Triangle.TriangleType.hero);
 
             //bark in that direction
             BarkInThatDirection(tria.transform.position);
