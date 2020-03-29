@@ -21,6 +21,9 @@ public class TrAIngle : Triangle
     public float maxFollowSpeed = 3f;
     public float maxBackToLeaderSpeed = 3f;
 
+    public float secondToFriend = 3f;
+    private float multiplicatorFriendship = 0.33f;
+
     public Vector3 getScare = Vector3.zero;
 
     public float minDist = 12f;
@@ -50,6 +53,8 @@ public class TrAIngle : Triangle
     {
         currentSpeed = idleSpeed;
         StartCoroutine(idleTargetting());
+
+        multiplicatorFriendship = 10f / secondToFriend;
     }
 
     IEnumerator idleTargetting()
@@ -74,12 +79,6 @@ public class TrAIngle : Triangle
 
     public void Update()
     {
-        if (Input.GetKey(KeyCode.F))
-        {
-            UpdateFriendship(Time.deltaTime);
-        }
-
-
         Vector3 finalMove = Vector3.zero;
         //WOLF DODGE
         if (listOfViewSquare.Count != 0 /*&& groupSize > square.groupSize*/)
@@ -200,10 +199,10 @@ public class TrAIngle : Triangle
                 //only if it's the player
                 if(tr.getType() == TriangleType.hero)
                 {
-                    UpdateFriendship(Time.deltaTime * 0.5f);
+                    UpdateFriendship(Time.deltaTime * multiplicatorFriendship);
 
-                    if (friendship >= 5 && listOfFriends.Count==0)
-                    {
+                    if (friendship >= 5 && !listOfFriends.Contains(tr))
+                    { 
                         tr.GetComponent<Move>().friendNumbers++;
                         listOfFriends.Add(tr);
                     }
@@ -277,13 +276,10 @@ public class TrAIngle : Triangle
             return;
         }
 
-        Debug.Log(".");
         coinAnim01.sprite = allSpriteToShow[indexSprite];
-        Debug.Log("Here");
         coinAnim02.sprite = allSpriteToShow[Mathf.Min(indexSprite + 1, allSpriteToShow.Count-2)];
 
         float lerp = index - indexSprite;
-        Debug.Log("lerp = " + lerp+ " index = " + index + " indexSprite = " + indexSprite);
         coinAnim02.color = Color.Lerp(Color.white - Color.black, Color.white, lerp);
     }
 

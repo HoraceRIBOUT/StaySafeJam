@@ -40,6 +40,12 @@ public class VisionBully : MonoBehaviour
                     return;
                 }
             }
+            if (triangle.GetComponent<Move>() != null)
+            {
+                if (triangle.GetComponent<Move>().friendNumbers >= 2 * (father.listOfFriends.Count + 1))
+                    return;
+            }
+                
             if (!father.listOfPotentialVictim.Contains(triangle.transform))
                 father.listOfPotentialVictim.Add(triangle.transform);
         }

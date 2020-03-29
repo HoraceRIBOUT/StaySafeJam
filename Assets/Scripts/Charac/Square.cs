@@ -218,6 +218,6 @@ public class Square : MonoBehaviour
             BarkInThatDirection(tria.transform.position);
         }
 
-        Debug.Log("Collision name"+collision.gameObject.name);
+//        Debug.Log("Collision name"+collision.gameObject.name);
     }
 }

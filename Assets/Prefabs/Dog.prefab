@@ -205,6 +205,7 @@ MonoBehaviour:
   maxAvoidSpeed: 2
   maxFollowSpeed: 3
   maxBackToLeaderSpeed: 3
+  secondToFriend: 5
   getScare: {x: 0, y: 0, z: 0}
   minDist: 5
   centerOfTheAttention: 1
