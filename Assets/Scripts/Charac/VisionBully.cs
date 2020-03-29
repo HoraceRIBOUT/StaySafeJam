@@ -27,6 +27,13 @@ public class VisionBully : MonoBehaviour
             {
                 return;
             }
+            if (triangle.GetComponent<TrAIngle>())
+            {
+                if (triangle.GetComponent<TrAIngle>().listOfFriends.Count >= 3 * (father.listOfFriends.Count + 1))
+                {
+                    return;
+                }
+            }
             if (!father.listOfPotentialVictim.Contains(triangle.transform))
                 father.listOfPotentialVictim.Add(triangle.transform);
         }
@@ -34,6 +41,8 @@ public class VisionBully : MonoBehaviour
         Square square = other.GetComponent<Square>();
         if (square != null)
         {
+            //if get enough far away in game : 
+            //listOfFriends.Add(square);
         }
     }
 
@@ -51,6 +60,7 @@ public class VisionBully : MonoBehaviour
             {
                 return;
             }
+
             if (father.listOfPotentialVictim.Contains(triangle.transform))
                 father.listOfPotentialVictim.Remove(triangle.transform);
         }

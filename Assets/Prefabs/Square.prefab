@@ -288,6 +288,8 @@ MonoBehaviour:
   bullySpeed: 7
   listOfPotentialVictim: []
   bumpIntensity: 10
+  timerBump: 0
+  howLongStayLaughing: 1
   currentState: 0
   icon: {fileID: 3943083790890073393}
   spriteList:

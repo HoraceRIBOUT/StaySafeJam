@@ -13,7 +13,11 @@ public class Square : MonoBehaviour
 
     [Header("Bully")]
     public List<Transform> listOfPotentialVictim = new List<Transform>();
+    public List<Square> listOfFriends = new List<Square>();
     public float bumpIntensity = 5f;
+
+    public float timerBump = 0f;
+    public float howLongStayLaughing = 5f;
 
 
     public enum State
@@ -21,6 +25,7 @@ public class Square : MonoBehaviour
         idle,
         bully,
         runAway,
+        laugh,
     }
     [Header("State")]
     public State currentState = State.idle;
@@ -94,6 +99,11 @@ public class Square : MonoBehaviour
                 break;
             case State.runAway:
                 break;
+            case State.laugh:
+                timerBump -= Time.deltaTime;
+                if (timerBump <= 0)
+                    goesBackToIdle();
+                break;
             default:
                 break;
         }
@@ -133,6 +143,12 @@ public class Square : MonoBehaviour
         currentState = State.idle;
     }
 
+    void goesLaugh()
+    {
+        timerBump = howLongStayLaughing;
+        currentState = State.laugh;
+    }
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -142,6 +158,8 @@ public class Square : MonoBehaviour
             //Shuld be a method in triangle
             tria.bumpVector = (tria.transform.position - this.transform.position).normalized * bumpIntensity;
             tria.timerBumper = 0;
+
+            goesLaugh();
         }
 
         Debug.Log("Collision name"+collision.gameObject.name);
