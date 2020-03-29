@@ -257,8 +257,8 @@ MonoBehaviour:
   faceSprite: {fileID: 4436129778939149234}
   listSpriteFace:
   - {fileID: 3286163911610860551, guid: a89bad36c9ee12c408ac5c690ae63ce1, type: 3}
+  - {fileID: 3286163911610860551, guid: b9ad044d78f465341ab3d42803897ed5, type: 3}
   - {fileID: 3286163911610860551, guid: a89bad36c9ee12c408ac5c690ae63ce1, type: 3}
-  - {fileID: 3286163911610860551, guid: 8edc8fd7913f70b43a51ff63f4ad18e9, type: 3}
 --- !u!54 &7122485491189064479
 Rigidbody:
   m_ObjectHideFlags: 0

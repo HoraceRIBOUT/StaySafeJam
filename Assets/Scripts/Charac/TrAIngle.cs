@@ -89,10 +89,10 @@ public class TrAIngle : Triangle
             }
             Vector3 wolfMove = sumOfDistance.normalized * gmplValue.runAwayFromDog;
             wolfMove = Vector3.ClampMagnitude(wolfMove, gmplValue.maxRunAwaySpeed);
-            if(wolfMove.sqrMagnitude > finalMove.sqrMagnitude)
-                faceSprite.sprite = listSpriteFace[2];
-            else
-                    faceSprite.sprite = listSpriteFace[bumpVector.sqrMagnitude > 0.001f? 1:0];
+            //if(wolfMove.sqrMagnitude > finalMove.sqrMagnitude)
+            //    faceSprite.sprite = listSpriteFace[2];
+            //else
+            //        faceSprite.sprite = listSpriteFace[bumpVector.sqrMagnitude > 0.001f? 1:0];
             finalMove += wolfMove;
         }
         //IDLE MOVE

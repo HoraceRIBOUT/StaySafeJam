@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         Vector2 minMaxHeight = new Vector2(0.4f, 0.4f);
         Vector2 minMaxLarger = new Vector2(0.4f, 0.4f);
 
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 6; i++)
         {
             float lerpX = Random.Range(0f, 1f);
             float lerpY = Random.Range(0f, 1f);
