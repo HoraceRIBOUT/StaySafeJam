@@ -19,13 +19,14 @@ public class PopulWall : MonoBehaviour
     {
         replaceWall = false;
         int index = 1;
-        foreach(Transform trChild in GetComponentsInChildren<Transform>())
+        for(int indexA = 0; indexA < transform.childCount; indexA++)
         {
-            if(trChild.name == this.name)
+            if(transform.GetChild(indexA).name == this.name)
             {
                 continue;
             }
-            trChild.localPosition = index * Vector3.left * stepSize;
+            transform.GetChild(indexA).localPosition = index * Vector3.left * stepSize;
+            transform.GetChild(indexA).localEulerAngles = -this.transform.localEulerAngles;
             index++;
         }
     }
