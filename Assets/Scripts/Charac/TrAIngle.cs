@@ -204,6 +204,8 @@ public class TrAIngle : Triangle
                     if (friendship >= 5 && !listOfFriends.Contains(tr))
                     { 
                         tr.GetComponent<Move>().friendNumbers++;
+                        GameManager.Instance.sndManager.UpdateMusic((tr.GetComponent<Move>().friendNumbers / 6f));
+                        GameManager.Instance.sndManager.PlayDogFriendly();
                         listOfFriends.Add(tr);
                     }
                 }
@@ -354,8 +356,9 @@ public class TrAIngle : Triangle
     public override void Bump()
     {
         faceSprite.sprite = listSpriteFace[1];
+        GameManager.Instance.sndManager.PlayDogFlee();
 
-        if(friendship > 8)
+        if (friendship > 8)
         {
             float value = (friendship - 8f) / 2f;
             GameManager.Instance.cameraScreen.Screenshake(0.1f * value);
