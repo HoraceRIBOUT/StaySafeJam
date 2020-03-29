@@ -12,3 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c65b687b9e1ea7488d25f23e1e1bc24, type: 3}
   m_Name: FoxVal
   m_EditorClassIdentifier: 
+  rangeToGetAwayFrom: 1
+  basicSpeed: 1.3
+  waitRange: {x: 0.4, y: 1.2}
+  idleRangeX: {x: -4, y: 4}
+  idleRangeY: {x: -8, y: 8}
+  surprisePause: 0.5

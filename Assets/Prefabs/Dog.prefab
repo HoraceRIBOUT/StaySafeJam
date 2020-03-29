@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 7122485491189064479}
   - component: {fileID: 7883549408350104193}
   - component: {fileID: 6734105994357845351}
+  - component: {fileID: 4436129779123816065}
   m_Layer: 0
   m_Name: Dog
   m_TagString: Untagged
@@ -193,7 +194,7 @@ MonoBehaviour:
   rangeToGetAwayFrom: 1
   friendship: 0
   bumpVector: {x: 0, y: 0, z: 0}
-  bumpReducer: 5
+  bumpDurationReducer: 0.33
   timerBumper: 0
   gmplValue: {fileID: 11400000, guid: d00da2b6d689f674e9e31f03e09ff43d, type: 2}
   debug: 0
@@ -300,6 +301,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interest: 1.5
+--- !u!95 &4436129779123816065
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4436129779821975508}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 47e6c20ab87886c49a9667de71492395, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6991009785309921085
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,7 +798,7 @@ PrefabInstance:
     - target: {fileID: 6570655626118827756, guid: 2df760326f93fac46b17db592d4f8d48,
         type: 3}
       propertyPath: m_Name
-      value: Visual
+      value: Visual-Triangle
       objectReference: {fileID: 0}
     - target: {fileID: 6570655626118827757, guid: 2df760326f93fac46b17db592d4f8d48,
         type: 3}
@@ -799,6 +819,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570655627532739066, guid: 2df760326f93fac46b17db592d4f8d48,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6570655627532739067, guid: 2df760326f93fac46b17db592d4f8d48,
         type: 3}

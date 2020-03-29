@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: DogVal
   m_EditorClassIdentifier: 
   idleSpeed: 1
+  runAwayFromDog: 2
+  fearHeroAskHelp: 5
   maxRunAwaySpeed: 2
   maxIdleSpeed: 1
   maxAvoidSpeed: 1
@@ -26,6 +28,6 @@ MonoBehaviour:
   centerOfTheAttention: 1.62
   introvertness: 4.05
   followHero: 0.81
-  bumpIntensity: 4
-  bumpDurationReducer: 4
+  bumpIntensity: 8
+  bumpDurationReducer: 7
   minDist: 12

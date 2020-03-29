@@ -10,7 +10,7 @@ public class PauseScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("p") && inGame)
+        if (Input.GetKeyDown(KeyCode.Escape) && inGame)
         {
             Pause();
         }
