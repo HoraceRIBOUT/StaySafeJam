@@ -3213,7 +3213,7 @@ MonoBehaviour:
   allTrees: []
   folderTree: {fileID: 493278787}
   numberOfCase: 30
-  chanceOfHavingATree: 0.2
+  chanceOfHavingATree: 0.25
   treeToSpawn: {fileID: 768127257668747319, guid: 2ed17e80e325b0d4d9f290ced027a324,
     type: 3}
   minMaxHeight: {x: 0.3, y: 0.6}

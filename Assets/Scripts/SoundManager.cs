@@ -35,7 +35,6 @@ public class SoundManager : MonoBehaviour
         happier5Music.volume = 0;
         happier8Music.volume = 0;
         happier10Music.volume = 0;
-        Debug.Log("Start  ? whola !");
     }
 
     public void UpdateFriendNumer(int numberOfFriends)
@@ -119,7 +118,7 @@ public class SoundManager : MonoBehaviour
             int random = Random.Range(0, wolfBarkList.Count); if (random == wolfBarkList.Count) random = wolfBarkList.Count - 1;
             aSAvailable.clip = wolfBarkList[random];
             aSAvailable.pitch = Random.Range(0.4f, 1.4f);
-            aSAvailable.volume = volumeBark * (hero ? 1f : 0.2f);
+            aSAvailable.volume = volumeBark * (hero ? GameManager.Instance.feedbackValue.soundBarkHero : GameManager.Instance.feedbackValue.soundBarkDoggo);
 
             aSAvailable.Play();
         }

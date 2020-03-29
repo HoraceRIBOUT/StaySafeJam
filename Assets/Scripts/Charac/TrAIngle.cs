@@ -87,7 +87,7 @@ public class TrAIngle : Triangle
             {
                 sumOfDistance += (this.transform.position - square.position);
             }
-            Vector3 wolfMove = sumOfDistance.normalized * currentSpeed;
+            Vector3 wolfMove = sumOfDistance.normalized * gmplValue.runAwayFromDog;
             wolfMove = Vector3.ClampMagnitude(wolfMove, gmplValue.maxRunAwaySpeed);
             finalMove += wolfMove;
         }
@@ -191,10 +191,6 @@ public class TrAIngle : Triangle
 
                     if (friendship >= 5 && !listOfFriends.Contains(tr))
                     { 
-                        tr.GetComponent<Move>().friendNumbers++;
-                        GameManager.Instance.sndManager.UpdateFriendNumer((tr.GetComponent<Move>().friendNumbers));
-                        Debug.Log("+1");
-                        GameManager.Instance.sndManager.PlayDogFriendly();
                         listOfFriends.Add(tr);
                     }
                 }
@@ -228,6 +224,7 @@ public class TrAIngle : Triangle
 
         //If get scare
         finalMove += getScare;
+        getScare = Vector3.Lerp(getScare, Vector3.zero, Time.deltaTime * 0.4f);
 
         //FINAL
         finalMove = addBumpyness(finalMove);
@@ -243,10 +240,20 @@ public class TrAIngle : Triangle
         {
             friendship += value;
         }
-        else if(value > 0)
-            friendship = 10;
+        else if(value > 0 && friendship != 10)
+        {
+            BecameFriend();
+        }
 
         UpdateVisual();
+    }
+
+    void BecameFriend()
+    {
+        friendship = 10;
+        GameManager.Instance.hero.friendNumbers++;
+        GameManager.Instance.sndManager.UpdateFriendNumer(GameManager.Instance.hero.friendNumbers);
+        GameManager.Instance.sndManager.PlayDogFriendly();
     }
 
     public void UpdateVisual()
@@ -290,8 +297,8 @@ public class TrAIngle : Triangle
 
     public void GetScared(Vector3 direction)
     {
-        float friendshipValue = Mathf.Clamp01((6 - friendship) / 6f);
-        getScare = direction.normalized * gmplValue.maxRunAwaySpeed * friendshipValue;
+        float friendshipValue = Mathf.Clamp01((10 - friendship) / 10f);
+        getScare = direction.normalized * gmplValue.fearHeroAskHelp * friendshipValue;
     }
 
 

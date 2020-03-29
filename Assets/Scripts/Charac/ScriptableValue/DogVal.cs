@@ -7,6 +7,8 @@ public class DogVal : ScriptableObject
 {
     [Header("Speeds")]
     public float idleSpeed = 1f;
+    public float runAwayFromDog = 2f;
+    public float fearHeroAskHelp = 5f;
     public float maxRunAwaySpeed = 1f;
     public float maxIdleSpeed = 1f;
     public float maxAvoidSpeed = 1f;
