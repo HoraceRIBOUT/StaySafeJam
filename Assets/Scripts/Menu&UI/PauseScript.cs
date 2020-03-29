@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PauseScript : MonoBehaviour
 {
+    public bool inGame = false;
     private bool isPaused = false;
     [SerializeField] private GameObject pauseCanvas;
 
     void Update()
     {
-        if (Input.GetKeyDown("p"))
+        if (Input.GetKeyDown("p") && inGame)
         {
             Pause();
         }
@@ -17,7 +18,7 @@ public class PauseScript : MonoBehaviour
 
     public void Pause()
     {
-        if (isPaused == true)
+        if (isPaused)
         {
             pauseCanvas.SetActive(false);
             Time.timeScale = 1;
