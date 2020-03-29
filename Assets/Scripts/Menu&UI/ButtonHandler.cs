@@ -6,17 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class ButtonHandler : MonoBehaviour
 {
+    [SerializeField] private GameObject menuCanvas;
     [SerializeField] private GameObject creditsCanvas;
     [SerializeField] private AudioSource buttonSound;
+    [SerializeField] private GameObject hero;
 
     public void StartGame()
     {
+        hero.SetActive(true);
         if (buttonSound) { buttonSound.Play(); }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        menuCanvas.SetActive(false);
     }
 
     public void RestartGame()
     {
+        Time.timeScale = 1;
         if (buttonSound) { buttonSound.Play(); }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -36,7 +40,7 @@ public class ButtonHandler : MonoBehaviour
     public void GoToMenu()
     {
         if (buttonSound) { buttonSound.Play(); }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Back()
